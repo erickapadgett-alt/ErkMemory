@@ -23,3 +23,11 @@
 - Fast turnaround
 - Working solutions
 - Things that "just work"
+
+## ErickaLogic System
+
+Ericka maintains a custom ruleset at `/root/clawd/ErickaLogic.md` to make me smarter.
+
+- Review: Weekly
+- Commands: 'list ErickaLogic', 'add rule X', 'remove rule X', 'get latest AI tips'
+- First populated: 2026-02-25 with 5 coding rules
