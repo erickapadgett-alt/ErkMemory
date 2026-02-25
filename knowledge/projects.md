@@ -21,3 +21,10 @@
 ## Ideas/Backlog
 
 *(Will populate as discussed)*
+
+### 75 Hard Tracker
+- **Created:** 2026-02-25
+- **GitHub:** https://github.com/erickapadgett-alt/75Hard
+- **Live:** https://seven5-hard-tracker-rp8k.onrender.com
+- **Purpose:** Track 75 Hard challenge progress
+- **Start Date:** Feb 24, 2026 (Day 1)
