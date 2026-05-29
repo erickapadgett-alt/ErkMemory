@@ -13,6 +13,11 @@
 - **Region:** Oregon (default)
 - **Services:** weather-app
 
+### Looker API
+- **Usage guide:** see `knowledge/looker-api.md`
+- **Auth:** OAuth2 client credentials (API 4.0), env vars `LOOKERSDK_*`
+- **Secrets:** in credentials store / env vars — NOT committed
+
 ## Credentials Location
 
 All credentials stored at: `~/.config/clawdbot/credentials`
