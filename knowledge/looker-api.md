@@ -53,10 +53,25 @@ makes the GitHub MCP server work here even though direct `curl api.github.com`
 is blocked by the container allowlist. This bypasses the container network
 policy entirely.
 
-- Enable the MCP server on the Looker instance (Admin) and add it as a custom
-  connector in Claude → Settings → Connectors, authenticating with OAuth/API
-  credentials.
-- Docs: https://docs.cloud.google.com/looker/docs/mcp
+**Exact connector URL (must include the `/mcp` path):**
+
+```
+https://vipmedicalgroup.cloud.looker.com/mcp
+```
+
+> ⚠️ The bare host (`https://vipmedicalgroup.cloud.looker.com` or `:443`) is
+> NOT a valid MCP endpoint — it connects but exposes zero tools. The path
+> `/mcp` is required.
+
+Setup steps:
+1. **Admin → Platform → MCP** in Looker: enable the MCP server (needs Admin role).
+2. **Register the AI agent (OAuth):** during preview, an admin registers the
+   agent via the `oauth_client_apps` API endpoint (redirect URI, display name).
+3. In Claude → Settings → Connectors, add the remote MCP server URL above and
+   complete the OAuth authorization.
+
+Docs: https://docs.cloud.google.com/looker/docs/mcp and
+https://docs.cloud.google.com/looker/docs/admin-panel-platform-mcp
 
 ### Option B — MCP Toolbox over stdio (configured in this repo)
 
