@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "looker": {
+      "command": "npx",
+      "args": ["-y", "@toolbox-sdk/server", "--prebuilt", "looker,looker-dev", "--stdio"],
+      "env": {
+        "LOOKER_BASE_URL": "https://vipmedicalgroup.cloud.looker.com:19999",
+        "LOOKER_CLIENT_ID": "${LOOKER_CLIENT_ID}",
+        "LOOKER_CLIENT_SECRET": "${LOOKER_CLIENT_SECRET}",
+        "LOOKER_VERIFY_SSL": "true"
+      }
+    }
+  }
+}

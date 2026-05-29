@@ -39,6 +39,52 @@ LOOKERSDK_VERIFY_SSL=true
 
 See: https://code.claude.com/docs/en/claude-code-on-the-web (env vars).
 
+## MCP connector (the "no Python, just works" path)
+
+This is almost certainly how data was pulled before — via a Looker MCP
+connector, not a script. There are two ways to connect:
+
+### Option A — Looker-managed remote MCP server (recommended, egress-free)
+
+Looker-hosted instances expose a built-in, Looker-managed MCP server. Added as
+a **remote connector in the Claude web Connectors settings** (account-level, not
+this repo), it connects through Anthropic's MCP gateway — the same path that
+makes the GitHub MCP server work here even though direct `curl api.github.com`
+is blocked by the container allowlist. This bypasses the container network
+policy entirely.
+
+- Enable the MCP server on the Looker instance (Admin) and add it as a custom
+  connector in Claude → Settings → Connectors, authenticating with OAuth/API
+  credentials.
+- Docs: https://docs.cloud.google.com/looker/docs/mcp
+
+### Option B — MCP Toolbox over stdio (configured in this repo)
+
+`.mcp.json` at the repo root runs Google's MCP Toolbox (`@toolbox-sdk/server`,
+prebuilt `looker` tools) locally over stdio:
+
+```jsonc
+// .mcp.json (committed; NO secret in it)
+"looker": {
+  "command": "npx",
+  "args": ["-y", "@toolbox-sdk/server", "--prebuilt", "looker,looker-dev", "--stdio"],
+  "env": {
+    "LOOKER_BASE_URL": "https://vipmedicalgroup.cloud.looker.com:19999",
+    "LOOKER_CLIENT_ID": "${LOOKER_CLIENT_ID}",      // from env
+    "LOOKER_CLIENT_SECRET": "${LOOKER_CLIENT_SECRET}", // from env
+    "LOOKER_VERIFY_SSL": "true"
+  }
+}
+```
+
+Set `LOOKER_CLIENT_ID` / `LOOKER_CLIENT_SECRET` as environment variables in the
+environment config (persisted, not in git). Tools exposed: `get_models`,
+`get_explores`, `get_dimensions`, `get_measures`, `query`, `run_look`, etc.
+
+> ⚠️ Caveat: the stdio Toolbox runs *inside this container*, so it uses the
+> container's egress and is still subject to the network allowlist below. Only
+> Option A's gateway-routed remote connector avoids that.
+
 ## ⚠️ Network access requirement
 
 Pulling data requires outbound network egress to the Looker host **and the API
@@ -109,7 +155,10 @@ csv = sdk.run_look(look_id="42", result_format="csv")
 
 - [x] Instance URL + client ID recorded
 - [x] Local `looker.ini` created (gitignored) with full credentials
-- [x] `looker_pull.py` helper ready
-- [ ] **Add Looker host + port 19999 to environment network allowlist** (blocker)
-- [ ] Set `LOOKERSDK_*` env vars in environment config for cross-session persistence
-- [ ] Verify live pull: `python looker_pull.py`
+- [x] `looker_pull.py` helper ready (Option: direct script)
+- [x] `.mcp.json` Looker MCP connector configured (Option B, stdio Toolbox)
+- [ ] **Best path:** add Looker-managed remote connector in Claude → Settings →
+      Connectors (Option A — egress-free, like the GitHub MCP server)
+- [ ] For Option B: set `LOOKER_CLIENT_ID`/`LOOKER_CLIENT_SECRET` env vars, and
+      allow `vipmedicalgroup.cloud.looker.com:19999` in the network policy
+- [ ] Verify live pull
