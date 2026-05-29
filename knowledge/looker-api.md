@@ -1,78 +1,88 @@
-# Looker API
+# Looker API — VIP Medical Group
 
-Reference for working with the Looker API across all Claude Code sessions.
+Reference for working with the VIP Medical Group Looker instance across all
+Claude Code sessions.
 
-> ⚠️ **Secrets are NOT stored in this repo.** Following the convention in
-> `knowledge/systems.md`, the actual client ID / secret live in the
-> credentials store (`~/.config/clawdbot/credentials`) and/or environment
-> variables. This file documents *how* to use the API and *where* the
-> credentials are expected — not the secret values themselves.
+> ⚠️ **The client secret is NOT stored in this repo.** It lives in a
+> gitignored `looker.ini` (local to a session) and/or `LOOKERSDK_*`
+> environment variables configured in the environment settings. Never commit
+> the secret — git history is permanent.
 
-## Credentials (fill in / confirm)
+## Connection details
 
-Provided in a prior chat — values must be placed in the credentials store or
-exported as env vars before use. **Placeholders below — replace `<...>`:**
+| Item | Value |
+|------|-------|
+| Web UI | https://vipmedicalgroup.cloud.looker.com/ |
+| API base URL | `https://vipmedicalgroup.cloud.looker.com:19999` |
+| API version | `4.0` (current) |
+| Auth | OAuth2 client credentials ("API Key for LookML") |
+| Client ID | `bNBcwMGhg5sWgGD5Nqty` |
+| Client Secret | **not stored here** — see `looker.ini` / env vars |
 
-| Item | Env var | Value |
-|------|---------|-------|
-| Instance / API base URL | `LOOKERSDK_BASE_URL` | `https://<instance>.cloud.looker.com:19999` |
-| Client ID | `LOOKERSDK_CLIENT_ID` | `<client_id>` |
-| Client secret | `LOOKERSDK_CLIENT_SECRET` | `<client_secret>` (secret — store securely) |
-| Verify SSL | `LOOKERSDK_VERIFY_SSL` | `true` |
-| API version | — | `4.0` (current) |
+## Where credentials live
 
-Store secrets one of these ways:
+**This session (already set up):** a gitignored `looker.ini` at the repo root
+holds the full credentials and is read automatically by the SDK and the
+`looker_pull.py` helper.
 
-```bash
-# Option A: export env vars (e.g. in shell profile or session-env)
-export LOOKERSDK_BASE_URL="https://<instance>.cloud.looker.com:19999"
-export LOOKERSDK_CLIENT_ID="<client_id>"
-export LOOKERSDK_CLIENT_SECRET="<client_secret>"
-export LOOKERSDK_VERIFY_SSL=true
+**For persistence across sessions:** because each web session is a fresh
+container (gitignored files and exported env vars do NOT carry over), set
+these as **environment variables in the environment configuration**
+(persisted, not in git):
+
+```
+LOOKERSDK_BASE_URL=https://vipmedicalgroup.cloud.looker.com:19999
+LOOKERSDK_CLIENT_ID=bNBcwMGhg5sWgGD5Nqty
+LOOKERSDK_CLIENT_SECRET=<client_secret>
+LOOKERSDK_VERIFY_SSL=true
 ```
 
-```ini
-# Option B: looker.ini (gitignored — never commit)
-[Looker]
-base_url=https://<instance>.cloud.looker.com:19999
-client_id=<client_id>
-client_secret=<client_secret>
-verify_ssl=true
-timeout=120
+See: https://code.claude.com/docs/en/claude-code-on-the-web (env vars).
+
+## ⚠️ Network access requirement
+
+Pulling data requires outbound network egress to the Looker host **and the API
+port 19999**. As of last test the environment's network policy blocked this:
+
+- `vipmedicalgroup.cloud.looker.com` → **403 "Host not in allowlist"**
+- port `:19999` → connection refused/blocked
+
+**To enable data pulls:** add `vipmedicalgroup.cloud.looker.com` (and allow
+port 19999) to the environment's network policy / allowlist. Reference:
+https://code.claude.com/docs/en/claude-code-on-the-web (network policy).
+
+## Pull data — helper script
+
+`looker_pull.py` (repo root) wraps the common operations:
+
+```bash
+pip install looker-sdk
+python looker_pull.py             # smoke test: whoami + list LookML models
+python looker_pull.py looks       # list saved Looks (id + title)
+python looker_pull.py dashboards  # list dashboards
+python looker_pull.py run-look 42 # run Look 42, output CSV
 ```
 
 ## Auth flow (raw REST)
 
-The API uses OAuth2 client-credentials. Exchange the client ID/secret for a
-short-lived access token, then send it as a Bearer token.
-
 ```bash
-# 1. Get an access token
 TOKEN=$(curl -s -X POST \
-  "$LOOKERSDK_BASE_URL/api/4.0/login" \
+  "https://vipmedicalgroup.cloud.looker.com:19999/api/4.0/login" \
   -d "client_id=$LOOKERSDK_CLIENT_ID&client_secret=$LOOKERSDK_CLIENT_SECRET" \
   | jq -r .access_token)
 
-# 2. Call an endpoint
-curl -s "$LOOKERSDK_BASE_URL/api/4.0/user" \
+curl -s "https://vipmedicalgroup.cloud.looker.com:19999/api/4.0/user" \
   -H "Authorization: Bearer $TOKEN" | jq
 ```
 
-## Python SDK (recommended)
-
-```bash
-pip install looker-sdk
-```
+## Python SDK
 
 ```python
 import looker_sdk
-
-# Reads LOOKERSDK_* env vars or looker.ini automatically
-sdk = looker_sdk.init40()          # API 4.0
-
-me = sdk.me()                      # current user
-looks = sdk.all_looks()            # list saved Looks
-# Run a query / inline query, get results as CSV/JSON, etc.
+sdk = looker_sdk.init40(config_file="looker.ini")   # or init40() for env vars
+print(sdk.me())
+looks = sdk.all_looks(fields="id,title")
+csv = sdk.run_look(look_id="42", result_format="csv")
 ```
 
 ## Common endpoints (API 4.0)
@@ -89,14 +99,17 @@ looks = sdk.all_looks()            # list saved Looks
 
 ## Notes / gotchas
 
-- API runs on port **:19999** by default (separate from the web UI on :443/:9999).
+- API runs on port **:19999** (separate from the web UI on :443).
 - Access tokens are short-lived (~1h); the SDK auto-refreshes. For raw curl,
-  re-login when you get a 401.
+  re-login on a 401.
 - Rate limits apply per instance — batch where possible.
 - Never paste the client secret into committed files, logs, or PRs.
 
-## TODO / verify
+## Status
 
-- [ ] Confirm the real instance base URL (replace `<instance>`).
-- [ ] Place client ID/secret into `~/.config/clawdbot/credentials` or env vars.
-- [ ] Test auth with the curl login snippet above.
+- [x] Instance URL + client ID recorded
+- [x] Local `looker.ini` created (gitignored) with full credentials
+- [x] `looker_pull.py` helper ready
+- [ ] **Add Looker host + port 19999 to environment network allowlist** (blocker)
+- [ ] Set `LOOKERSDK_*` env vars in environment config for cross-session persistence
+- [ ] Verify live pull: `python looker_pull.py`
