@@ -4,8 +4,8 @@
   "description": "A cute, happy week-by-week pregnancy tracker for Courtney and Baby Padgett, due March 12, 2027.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#FFF8F5",
-  "theme_color": "#FFF8F5",
+  "background_color": "#FAF7EF",
+  "theme_color": "#FAF7EF",
   "icons": [
     {
       "src": "icon.svg",
