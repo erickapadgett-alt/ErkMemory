@@ -1,0 +1,1086 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Baby Padgett">
+<meta name="theme-color" content="#FFF8F5">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💗</text></svg>">
+<link rel="apple-touch-icon" href="icon.svg">
+</head>
+<body>
+<title>Baby Padgett 💗</title>
+<style>
+:root{
+  --bg:#FFF8F5; --bg2:#FFEFEA; --card:#FFFFFF; --card2:#FFF3F0;
+  --ink:#463A41; --ink2:#8A7580; --line:#F3DFDB;
+  --pink:#E4718E; --pink-soft:#F9D9E1; --pink-deep:#C9536F;
+  --apricot:#F2A25C; --apricot-soft:#FBE8D4;
+  --mint:#8FC8B0; --mint-soft:#DFF2EA;
+  --lav:#B9A2DE; --lav-soft:#EFE8FA;
+  --on-accent:#FFFFFF;
+  --shadow:0 10px 30px rgba(201,83,111,.10), 0 2px 8px rgba(70,58,65,.06);
+  --ring-track:#F6E3E8;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#251B21; --bg2:#2E2129; --card:#33252E; --card2:#3B2A34;
+    --ink:#F6E7EC; --ink2:#C4A6B2; --line:#4A3641;
+    --pink:#F088A2; --pink-soft:#54323E; --pink-deep:#F8AEC0;
+    --apricot:#F5B478; --apricot-soft:#4C3729;
+    --mint:#93D0B7; --mint-soft:#2C4038;
+    --lav:#C6B1E8; --lav-soft:#3C3149;
+    --on-accent:#33141E;
+    --shadow:0 10px 30px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.25);
+    --ring-track:#453039;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#FFF8F5; --bg2:#FFEFEA; --card:#FFFFFF; --card2:#FFF3F0;
+  --ink:#463A41; --ink2:#8A7580; --line:#F3DFDB;
+  --pink:#E4718E; --pink-soft:#F9D9E1; --pink-deep:#C9536F;
+  --apricot:#F2A25C; --apricot-soft:#FBE8D4;
+  --mint:#8FC8B0; --mint-soft:#DFF2EA;
+  --lav:#B9A2DE; --lav-soft:#EFE8FA;
+  --on-accent:#FFFFFF;
+  --shadow:0 10px 30px rgba(201,83,111,.10), 0 2px 8px rgba(70,58,65,.06);
+  --ring-track:#F6E3E8;
+}
+:root[data-theme="dark"]{
+  --bg:#251B21; --bg2:#2E2129; --card:#33252E; --card2:#3B2A34;
+  --ink:#F6E7EC; --ink2:#C4A6B2; --line:#4A3641;
+  --pink:#F088A2; --pink-soft:#54323E; --pink-deep:#F8AEC0;
+  --apricot:#F5B478; --apricot-soft:#4C3729;
+  --mint:#93D0B7; --mint-soft:#2C4038;
+  --lav:#C6B1E8; --lav-soft:#3C3149;
+  --on-accent:#33141E;
+  --shadow:0 10px 30px rgba(0,0,0,.35), 0 2px 8px rgba(0,0,0,.25);
+  --ring-track:#453039;
+}
+*{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+html,body{margin:0; padding:0}
+body{
+  background:var(--bg); color:var(--ink);
+  font-family:ui-rounded,"SF Pro Rounded",-apple-system,"Nunito","Segoe UI",system-ui,sans-serif;
+  font-size:16px; line-height:1.5;
+  min-height:100dvh;
+}
+button{font:inherit; color:inherit; border:0; background:none; cursor:pointer}
+input,select,textarea{font:inherit; color:var(--ink)}
+button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
+  outline:3px solid var(--lav); outline-offset:2px; border-radius:8px;
+}
+#app{max-width:520px; margin:0 auto; padding:0 16px calc(96px + env(safe-area-inset-bottom,0px));}
+
+/* ---------- header ---------- */
+.hdr{position:relative; padding:26px 4px 6px; overflow:visible}
+.hdr .blob{
+  position:absolute; inset:-60px -40px auto -40px; height:220px; z-index:-1;
+  background:
+    radial-gradient(50% 70% at 18% 30%, var(--pink-soft) 0%, transparent 70%),
+    radial-gradient(45% 60% at 80% 12%, var(--lav-soft) 0%, transparent 70%),
+    radial-gradient(40% 55% at 55% 80%, var(--apricot-soft) 0%, transparent 72%);
+  filter:blur(2px);
+}
+.hdr h1{margin:0; font-size:30px; font-weight:800; letter-spacing:-.02em; text-wrap:balance}
+.hdr .sub{margin:2px 0 0; color:var(--ink2); font-size:14.5px; font-weight:600}
+.hdr .datechip{
+  position:absolute; top:30px; right:4px; font-size:12.5px; font-weight:700;
+  background:var(--card); border:1px solid var(--line); color:var(--ink2);
+  padding:5px 11px; border-radius:999px; box-shadow:var(--shadow);
+}
+
+/* ---------- cards ---------- */
+.card{
+  background:var(--card); border-radius:24px; padding:18px 18px 16px;
+  box-shadow:var(--shadow); margin-top:14px; border:1px solid var(--line);
+}
+.card h3{
+  margin:0 0 6px; font-size:12.5px; font-weight:800; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink2); display:flex; align-items:center; gap:7px;
+}
+.card p{margin:0; font-size:16px}
+.card .big{font-size:17.5px; font-weight:600}
+
+/* ---------- hero ---------- */
+.hero{
+  margin-top:16px; background:linear-gradient(160deg,var(--card) 60%, var(--card2));
+  border-radius:30px; border:1px solid var(--line); box-shadow:var(--shadow);
+  padding:24px 18px 20px; text-align:center; position:relative; overflow:hidden;
+}
+.hearts{position:absolute; inset:0; pointer-events:none; overflow:hidden}
+.hearts span{position:absolute; bottom:-24px; font-size:15px; opacity:0; animation:floatup 9s linear infinite}
+@keyframes floatup{
+  0%{transform:translateY(0) translateX(0) scale(.8); opacity:0}
+  12%{opacity:.5}
+  100%{transform:translateY(-340px) translateX(14px) scale(1.15); opacity:0}
+}
+.ringwrap{position:relative; width:216px; height:216px; margin:0 auto}
+.ringwrap svg{transform:rotate(-90deg); display:block}
+.ring-track{stroke:var(--ring-track)}
+.ring-fill{stroke:url(#ringGrad); transition:stroke-dashoffset 1.1s cubic-bezier(.22,1,.36,1)}
+.fruit{
+  position:absolute; inset:0; display:grid; place-items:center;
+  font-size:78px; line-height:1;
+}
+.fruit .inner{animation:bob 3.4s ease-in-out infinite; filter:drop-shadow(0 8px 14px rgba(201,83,111,.25))}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(-3deg)}50%{transform:translateY(-9px) rotate(3deg)}}
+.pct{
+  position:absolute; left:0; right:0; bottom:14px; font-size:13px; font-weight:800;
+  color:var(--pink); letter-spacing:.02em;
+}
+.weekline{margin:10px 0 0; font-size:26px; font-weight:800; letter-spacing:-.02em}
+.sizeline{margin:2px 0 0; color:var(--ink2); font-weight:600; font-size:16px; text-wrap:balance}
+.measure{
+  display:inline-flex; gap:8px; margin-top:10px; font-size:13.5px; font-weight:700;
+  color:var(--ink2); background:var(--bg2); border-radius:999px; padding:6px 14px;
+  font-variant-numeric:tabular-nums;
+}
+.chips{display:flex; gap:8px; justify-content:center; margin-top:12px; flex-wrap:wrap}
+.chip{font-size:12.5px; font-weight:800; padding:6px 12px; border-radius:999px; letter-spacing:.02em}
+.chip.tri1{background:var(--mint-soft); color:var(--mint)}
+.chip.tri2{background:var(--apricot-soft); color:var(--apricot)}
+.chip.tri3{background:var(--lav-soft); color:var(--lav)}
+.chip.count{background:var(--pink-soft); color:var(--pink)}
+
+/* countdown */
+.count-card{display:flex; align-items:center; gap:16px}
+.count-num{
+  font-size:44px; font-weight:800; color:var(--pink); line-height:1;
+  font-variant-numeric:tabular-nums; letter-spacing:-.02em; min-width:86px; text-align:center;
+}
+.count-card .lbl{font-size:16px; font-weight:600}
+.count-card .due{color:var(--ink2); font-size:13.5px; margin-top:2px}
+
+/* milestone */
+.mile{display:flex; gap:12px; align-items:center}
+.mile .em{font-size:30px}
+.mile .in{font-size:13px; color:var(--ink2); font-weight:700}
+
+/* celebrate */
+.celebrate{
+  display:block; width:100%; margin-top:16px; padding:15px;
+  background:linear-gradient(135deg,var(--pink),var(--apricot)); color:var(--on-accent);
+  font-weight:800; font-size:16.5px; border-radius:20px; box-shadow:var(--shadow);
+  transition:transform .12s ease;
+}
+.celebrate:active{transform:scale(.97)}
+
+/* ---------- tabs ---------- */
+.tabbar{
+  position:fixed; bottom:0; left:0; right:0; z-index:40;
+  background:color-mix(in srgb, var(--card) 88%, transparent);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);
+  padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));
+}
+.tabbar .row{max-width:520px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr); gap:6px}
+.tab{
+  display:flex; flex-direction:column; align-items:center; gap:2px;
+  padding:7px 4px 5px; border-radius:16px; color:var(--ink2);
+  font-size:11px; font-weight:800; letter-spacing:.03em;
+}
+.tab .ic{font-size:21px; line-height:1}
+.tab[aria-selected="true"]{background:var(--pink-soft); color:var(--pink)}
+
+/* ---------- weeks ---------- */
+.tri-head{
+  margin:22px 4px 4px; font-size:13px; font-weight:800; letter-spacing:.09em;
+  text-transform:uppercase; color:var(--ink2);
+}
+.wk{
+  display:flex; align-items:center; gap:14px; width:100%; text-align:left;
+  background:var(--card); border:1px solid var(--line); border-radius:20px;
+  padding:12px 14px; margin-top:8px; box-shadow:var(--shadow);
+}
+.wk .em{font-size:30px; width:40px; text-align:center; flex:none}
+.wk .t{font-weight:800; font-size:16px}
+.wk .s{color:var(--ink2); font-size:13.5px; font-weight:600}
+.wk .arr{margin-left:auto; color:var(--ink2)}
+.wk.now{border:2px solid var(--pink); background:var(--card2)}
+.wk.now .t::after{content:"you are here 💗"; margin-left:8px; font-size:11px; color:var(--pink); letter-spacing:.04em}
+.wk.past{opacity:.62}
+
+/* sheet */
+.sheet-back{position:fixed; inset:0; background:rgba(40,20,30,.45); z-index:60; display:none}
+.sheet-back.open{display:block}
+.sheet{
+  position:fixed; left:0; right:0; bottom:0; z-index:61; transform:translateY(105%);
+  transition:transform .32s cubic-bezier(.22,1,.36,1);
+  background:var(--card); border-radius:28px 28px 0 0; box-shadow:0 -12px 40px rgba(0,0,0,.25);
+  max-width:520px; margin:0 auto; padding:14px 20px calc(24px + env(safe-area-inset-bottom,0px));
+  max-height:82dvh; overflow-y:auto;
+}
+.sheet.open{transform:translateY(0)}
+.sheet .grab{width:44px; height:5px; border-radius:99px; background:var(--line); margin:0 auto 14px}
+.sheet .em{font-size:64px; text-align:center; margin:4px 0 2px}
+.sheet h2{margin:0; text-align:center; font-size:23px; font-weight:800}
+.sheet .dates{text-align:center; color:var(--ink2); font-size:13.5px; font-weight:700; margin:2px 0 8px}
+.sheet .sec{background:var(--bg2); border-radius:18px; padding:13px 15px; margin-top:10px}
+.sheet .sec h4{margin:0 0 3px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--ink2)}
+.sheet .sec p{margin:0; font-size:15.5px}
+
+/* ---------- kicks ---------- */
+.kickbtn{
+  display:grid; place-items:center; width:190px; height:190px; margin:18px auto 6px;
+  border-radius:50%; background:linear-gradient(150deg,var(--pink),var(--pink-deep));
+  color:var(--on-accent); box-shadow:0 16px 40px rgba(201,83,111,.35);
+  font-weight:800; transition:transform .1s ease;
+}
+:root[data-theme="dark"] .kickbtn, .kickbtn{color:#fff}
+.kickbtn:active{transform:scale(.94)}
+.kickbtn .n{font-size:56px; line-height:1; font-variant-numeric:tabular-nums}
+.kickbtn .l{font-size:13px; letter-spacing:.06em; opacity:.9}
+.kick-meta{text-align:center; color:var(--ink2); font-weight:700; font-size:14px; margin-top:8px; font-variant-numeric:tabular-nums}
+.kick-actions{display:flex; gap:10px; justify-content:center; margin-top:14px}
+.btn{
+  padding:11px 18px; border-radius:16px; font-weight:800; font-size:14.5px;
+  background:var(--pink-soft); color:var(--pink);
+}
+.btn.ghost{background:var(--bg2); color:var(--ink2)}
+.btn.full{display:block; width:100%; margin-top:12px; text-align:center; padding:13px}
+.hist{margin-top:6px}
+.hist .row{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  padding:11px 4px; border-bottom:1px solid var(--line); font-size:14.5px;
+}
+.hist .row:last-child{border-bottom:0}
+.hist .when{font-weight:700}
+.hist .meta{color:var(--ink2); font-weight:600; font-variant-numeric:tabular-nums}
+.note{color:var(--ink2); font-size:13.5px; margin-top:10px}
+
+/* ---------- more / lists ---------- */
+.formrow{display:flex; gap:8px; margin-top:12px}
+.formrow input[type=text]{flex:1; min-width:0}
+input[type=text],input[type=date],input[type=time],textarea,select{
+  background:var(--bg2); border:1px solid var(--line); border-radius:14px;
+  padding:11px 13px; font-size:15.5px; width:100%;
+}
+textarea{resize:vertical; min-height:64px}
+.item{
+  display:flex; align-items:center; gap:11px; padding:11px 2px;
+  border-bottom:1px solid var(--line); font-size:15.5px;
+}
+.item:last-child{border-bottom:0}
+.item .grow{flex:1; min-width:0}
+.item .sub{color:var(--ink2); font-size:13px; font-weight:600}
+.item .del{color:var(--ink2); font-size:17px; padding:6px}
+.item .heart{font-size:20px; padding:4px}
+.check{display:flex; align-items:center; gap:11px; width:100%; text-align:left; padding:10px 2px; border-bottom:1px solid var(--line); font-size:15.5px}
+.check:last-child{border-bottom:0}
+.check .box{
+  width:24px; height:24px; flex:none; border-radius:9px; border:2px solid var(--pink);
+  display:grid; place-items:center; font-size:14px; color:var(--on-accent); background:transparent;
+}
+.check.done .box{background:var(--pink)}
+.check.done .lbl{text-decoration:line-through; color:var(--ink2)}
+.bag-head{display:flex; justify-content:space-between; align-items:baseline}
+.bag-head .pct2{color:var(--pink); font-weight:800; font-size:13px; font-variant-numeric:tabular-nums}
+.moods{display:flex; gap:6px; margin:10px 0 8px; flex-wrap:wrap}
+.mood{font-size:24px; padding:7px 9px; border-radius:14px; background:var(--bg2); border:2px solid transparent}
+.mood.sel{border-color:var(--pink); background:var(--pink-soft)}
+.tag{font-size:11px; font-weight:800; padding:3px 9px; border-radius:99px; letter-spacing:.04em}
+.tag.girl{background:var(--pink-soft); color:var(--pink)}
+.tag.boy{background:var(--mint-soft); color:var(--mint)}
+.tag.either{background:var(--lav-soft); color:var(--lav)}
+.seg{display:flex; gap:6px; margin-top:10px}
+.seg button{flex:1; padding:9px; border-radius:13px; background:var(--bg2); font-weight:800; font-size:13px; color:var(--ink2)}
+.seg button.sel{background:var(--pink-soft); color:var(--pink)}
+.settings-row{display:flex; flex-direction:column; gap:6px; margin-top:12px}
+.settings-row label{font-size:12.5px; font-weight:800; letter-spacing:.06em; text-transform:uppercase; color:var(--ink2)}
+.empty{color:var(--ink2); font-size:14px; text-align:center; padding:14px 0 6px}
+
+/* toast + confetti */
+#toast{
+  position:fixed; left:50%; bottom:calc(104px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%) translateY(20px);
+  background:var(--ink); color:var(--bg); padding:11px 20px; border-radius:999px;
+  font-weight:800; font-size:14px; opacity:0; pointer-events:none; transition:all .3s ease; z-index:80;
+  max-width:90vw; text-align:center;
+}
+#toast.show{opacity:1; transform:translateX(-50%) translateY(0)}
+#confetti{position:fixed; inset:0; pointer-events:none; z-index:70}
+.view{display:none; animation:fadein .25s ease}
+.view.active{display:block}
+@keyframes fadein{from{opacity:0; transform:translateY(6px)}to{opacity:1; transform:none}}
+@media (prefers-reduced-motion: reduce){
+  *{animation:none !important; transition:none !important}
+}
+</style>
+
+<div id="app">
+  <header class="hdr">
+    <div class="blob"></div>
+    <h1 id="appTitle">Baby Padgett 💗</h1>
+    <p class="sub" id="appSub">Courtney&rsquo;s journey to meeting you</p>
+    <span class="datechip" id="todayChip"></span>
+  </header>
+
+  <!-- ============ TODAY ============ -->
+  <main class="view active" id="view-today">
+    <section class="hero" aria-label="Baby progress">
+      <div class="hearts" id="hearts" aria-hidden="true"></div>
+      <div class="ringwrap">
+        <svg width="216" height="216" viewBox="0 0 216 216" aria-hidden="true">
+          <defs>
+            <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#E4718E"/><stop offset="1" stop-color="#F2A25C"/>
+            </linearGradient>
+          </defs>
+          <circle class="ring-track" cx="108" cy="108" r="97" fill="none" stroke-width="13"/>
+          <circle class="ring-fill" id="ringFill" cx="108" cy="108" r="97" fill="none" stroke-width="13" stroke-linecap="round"/>
+        </svg>
+        <div class="fruit"><span class="inner" id="fruitEmoji">🫘</span></div>
+        <div class="pct" id="pctLabel"></div>
+      </div>
+      <p class="weekline" id="weekLine"></p>
+      <p class="sizeline" id="sizeLine"></p>
+      <span class="measure" id="measureLine" hidden></span>
+      <div class="chips">
+        <span class="chip tri1" id="triChip"></span>
+        <span class="chip count" id="dayChip"></span>
+      </div>
+    </section>
+
+    <section class="card count-card">
+      <div class="count-num" id="countNum">—</div>
+      <div>
+        <div class="lbl" id="countLbl">days until we meet you 💗</div>
+        <div class="due" id="dueLbl"></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3>🌱 What&rsquo;s developing</h3>
+      <p class="big" id="devText"></p>
+    </section>
+
+    <section class="card">
+      <h3>✨ Fun fact</h3>
+      <p id="factText"></p>
+    </section>
+
+    <section class="card">
+      <h3>💗 For mom this week</h3>
+      <p id="tipText"></p>
+    </section>
+
+    <section class="card mile">
+      <span class="em" id="mileEmoji">🎉</span>
+      <div>
+        <div class="in">NEXT MILESTONE</div>
+        <p class="big" id="mileText"></p>
+      </div>
+    </section>
+
+    <button class="celebrate" id="celebrateBtn">Celebrate this week! 🎉</button>
+  </main>
+
+  <!-- ============ WEEKS ============ -->
+  <main class="view" id="view-weeks">
+    <div id="weeksList"></div>
+  </main>
+
+  <!-- ============ KICKS ============ -->
+  <main class="view" id="view-kicks">
+    <section class="card" style="text-align:center">
+      <h3 style="justify-content:center">👣 Kick counter</h3>
+      <button class="kickbtn" id="kickBtn" aria-label="Count a kick">
+        <span class="n" id="kickNum">0</span>
+        <span class="l">TAP FOR EACH KICK</span>
+      </button>
+      <div class="kick-meta" id="kickMeta">Tap the heart when baby kicks 💕</div>
+      <div class="kick-actions">
+        <button class="btn" id="kickSave">Save session</button>
+        <button class="btn ghost" id="kickReset">Reset</button>
+      </div>
+      <p class="note">Around week 28, many providers suggest counting 10 movements — most babies get there within 2 hours. Baby Padgett&rsquo;s kicks should start being noticeable around weeks 18&ndash;22! 🦶</p>
+    </section>
+    <section class="card">
+      <h3>📖 Past sessions</h3>
+      <div class="hist" id="kickHist"><div class="empty">No sessions yet — baby is still warming up! 🐣</div></div>
+    </section>
+  </main>
+
+  <!-- ============ MORE ============ -->
+  <main class="view" id="view-more">
+    <section class="card">
+      <h3>🗓️ Appointments</h3>
+      <div id="apptList"><div class="empty">Nothing scheduled yet.</div></div>
+      <div class="formrow"><input type="text" id="apptTitle" placeholder="e.g. First ultrasound 🩺" aria-label="Appointment name"></div>
+      <div class="formrow">
+        <input type="date" id="apptDate" aria-label="Appointment date">
+        <input type="time" id="apptTime" aria-label="Appointment time">
+      </div>
+      <button class="btn full" id="apptAdd">Add appointment</button>
+      <p class="note">Typical rhythm: monthly visits until week 28, every 2 weeks until 36, then weekly until baby arrives.</p>
+    </section>
+
+    <section class="card">
+      <h3>📔 Journal — how&rsquo;s Courtney feeling?</h3>
+      <div class="moods" id="moodRow" role="radiogroup" aria-label="Mood"></div>
+      <textarea id="journalText" placeholder="Cravings, symptoms, sweet moments…"></textarea>
+      <button class="btn full" id="journalAdd">Save entry</button>
+      <div class="hist" id="journalList"></div>
+    </section>
+
+    <section class="card">
+      <h3>👶 Baby name ideas</h3>
+      <div class="formrow"><input type="text" id="nameInput" placeholder="A name you love…" aria-label="Baby name"></div>
+      <div class="seg" id="nameSeg">
+        <button data-cat="girl" class="sel">🎀 Girl</button>
+        <button data-cat="boy">💙 Boy</button>
+        <button data-cat="either">🌈 Either</button>
+      </div>
+      <button class="btn full" id="nameAdd">Add name</button>
+      <div class="hist" id="nameList"><div class="empty">Start your shortlist! Tap the heart on favorites.</div></div>
+    </section>
+
+    <section class="card">
+      <div class="bag-head"><h3>🧳 Hospital bag</h3><span class="pct2" id="bagPct"></span></div>
+      <div id="bagList"></div>
+      <div class="formrow"><input type="text" id="bagInput" placeholder="Add your own item…" aria-label="Bag item"></div>
+      <button class="btn full" id="bagAdd">Add item</button>
+    </section>
+
+    <section class="card">
+      <h3>⚙️ Settings</h3>
+      <div class="settings-row">
+        <label for="setDue">Due date</label>
+        <input type="date" id="setDue">
+      </div>
+      <div class="settings-row">
+        <label for="setBaby">Baby&rsquo;s nickname</label>
+        <input type="text" id="setBaby" placeholder="Baby Padgett">
+      </div>
+      <div class="settings-row">
+        <label for="setMom">Mom&rsquo;s name</label>
+        <input type="text" id="setMom" placeholder="Courtney">
+      </div>
+      <button class="btn full" id="setSave">Save settings</button>
+      <button class="btn ghost full" id="setReset">Erase all saved data</button>
+      <p class="note">Everything is saved privately on this device only. This app is for joy, not medical advice — always follow your provider&rsquo;s guidance. 💕</p>
+    </section>
+  </main>
+</div>
+
+<!-- week detail sheet -->
+<div class="sheet-back" id="sheetBack"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-label="Week details">
+  <div class="grab"></div>
+  <div class="em" id="shEmoji"></div>
+  <h2 id="shTitle"></h2>
+  <div class="dates" id="shDates"></div>
+  <div class="sec"><h4>Baby is the size of</h4><p id="shSize"></p></div>
+  <div class="sec"><h4>What&rsquo;s developing</h4><p id="shDev"></p></div>
+  <div class="sec"><h4>Fun fact</h4><p id="shFact"></p></div>
+  <div class="sec"><h4>For mom</h4><p id="shTip"></p></div>
+  <button class="btn full" id="shClose">Close</button>
+</div>
+
+<!-- tab bar -->
+<nav class="tabbar" aria-label="Sections">
+  <div class="row" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-view="today"><span class="ic">🏠</span>Today</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="weeks"><span class="ic">📅</span>Weeks</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="kicks"><span class="ic">👣</span>Kicks</button>
+    <button class="tab" role="tab" aria-selected="false" data-view="more"><span class="ic">🎀</span>More</button>
+  </div>
+</nav>
+
+<div id="toast" role="status"></div>
+<canvas id="confetti"></canvas>
+
+<script>
+"use strict";
+/* ============================== data ============================== */
+/* Week-by-week guide adapted from Courtney's pregnancy calendar.
+   len = approx length in cm, wt = approx weight in grams (null = too tiny!) */
+const WEEKS = [
+ {size:"Poppy seed", emoji:"✨", len:null, wt:null,
+  dev:"Fertilization is approaching and the uterine lining is preparing.",
+  fact:"Your baby's genetic blueprint will soon be completely unique.",
+  tip:"Start (or keep taking) a prenatal vitamin with folic acid every day."},
+ {size:"Sesame seed", emoji:"🌾", len:null, wt:null,
+  dev:"Ovulation and fertilization timing window.",
+  fact:"Half of the baby's DNA will come from each parent.",
+  tip:"Gentle movement, good sleep, and plenty of water set the stage beautifully."},
+ {size:"Chia seed", emoji:"🌱", len:null, wt:null,
+  dev:"The fertilized egg begins rapid cell division.",
+  fact:"The blastocyst is traveling toward the uterus.",
+  tip:"Caffeine in moderation — most guidance says under 200mg a day."},
+ {size:"Poppy seed", emoji:"✨", len:null, wt:null,
+  dev:"Implantation occurs in the uterine lining.",
+  fact:"hCG production begins around now.",
+  tip:"Light cramping can be normal this week. Be extra kind to yourself."},
+ {size:"Apple seed", emoji:"🫘", len:0.2, wt:null,
+  dev:"The neural tube begins forming.",
+  fact:"The future brain and spinal cord are developing.",
+  tip:"A positive test may show now! Schedule that first prenatal visit. 🎉"},
+ {size:"Sweet pea", emoji:"🫛", len:0.3, wt:null,
+  dev:"The heart begins beating.",
+  fact:"The heartbeat can sometimes be detected by ultrasound.",
+  tip:"Tiredness is real — early pregnancy is hard work. Naps are productive."},
+ {size:"Blueberry", emoji:"🫐", len:0.6, wt:null,
+  dev:"Brain growth accelerates and limb buds appear.",
+  fact:"Your baby already has tiny facial features forming.",
+  tip:"Small, frequent snacks (crackers by the bed!) help tame queasiness."},
+ {size:"Raspberry", emoji:"🍒", len:1.0, wt:null,
+  dev:"Tiny fingers and toes are developing.",
+  fact:"The embryo will soon officially be called a fetus.",
+  tip:"Ginger tea and vitamin B6 are classic helpers for morning sickness."},
+ {size:"Green olive", emoji:"🫒", len:1.6, wt:1,
+  dev:"Major organs are forming.",
+  fact:"The baby may begin tiny spontaneous movements.",
+  tip:"First prenatal appointment often lands around now — bring your questions!"},
+ {size:"Strawberry", emoji:"🍓", len:2.3, wt:2,
+  dev:"The placenta is taking over hormone production.",
+  fact:"Tiny tooth buds are already forming.",
+  tip:"A supportive bra is a small purchase with a big payoff right now."},
+ {size:"Lime", emoji:"🍋‍🟩", len:3.1, wt:4,
+  dev:"Hands and feet are fully formed.",
+  fact:"The baby can begin making small movements.",
+  tip:"You might hear the heartbeat on a doppler at this visit. Bring tissues. 🥹"},
+ {size:"Plum", emoji:"🍇", len:4.1, wt:7,
+  dev:"Reflexes begin developing.",
+  fact:"Fingerprints are starting to form.",
+  tip:"Energy often starts creeping back soon — hang in there!"},
+ {size:"Peach", emoji:"🍑", len:5.4, wt:14,
+  dev:"Vocal cords and fingerprints develop further.",
+  fact:"The baby can squint and frown.",
+  tip:"End of the first trimester! Many couples share their news around now. 📣"},
+ {size:"Lemon", emoji:"🍋", len:7.4, wt:23,
+  dev:"The neck becomes more defined.",
+  fact:"Fine hair called lanugo will eventually cover the body.",
+  tip:"Welcome to the second trimester — often the sweet spot of pregnancy. 🎀"},
+ {size:"Apple", emoji:"🍎", len:8.7, wt:43,
+  dev:"Bones continue hardening.",
+  fact:"The baby may start hearing muffled sounds soon.",
+  tip:"Time for photos! A weekly bump picture makes an amazing keepsake."},
+ {size:"Avocado", emoji:"🥑", len:10.1, wt:70,
+  dev:"Facial muscles develop.",
+  fact:"The circulatory system is fully functioning.",
+  tip:"Talk and sing to the bump — baby's hearing is tuning in."},
+ {size:"Pear", emoji:"🍐", len:11.6, wt:100,
+  dev:"Fat storage begins.",
+  fact:"The skeleton is changing from cartilage to bone.",
+  tip:"Sleeping on your side (left is great) gets comfier with a pillow between the knees."},
+ {size:"Bell pepper", emoji:"🫑", len:13, wt:140,
+  dev:"Hearing develops rapidly.",
+  fact:"The baby may hear voices and music.",
+  tip:"Make a bump playlist — babies remember familiar songs after birth! 🎶"},
+ {size:"Mango", emoji:"🥭", len:14.2, wt:190,
+  dev:"Protective vernix begins forming.",
+  fact:"Sleep cycles begin developing.",
+  tip:"The anatomy scan is coming up — you can find out boy or girl if you want!"},
+ {size:"Banana", emoji:"🍌", len:15.3, wt:240,
+  dev:"The halfway point — movements may be felt.",
+  fact:"The baby practices swallowing.",
+  tip:"Those first flutters feel like bubbles or butterflies. Note the date! 🦋"},
+ {size:"Carrot", emoji:"🥕", len:25.6, wt:300,
+  dev:"Taste buds are developing.",
+  fact:"The baby can react to flavors in amniotic fluid.",
+  tip:"Halfway there! Celebrate with a date night — you've both earned it. 🥂"},
+ {size:"Papaya", emoji:"🍈", len:26.7, wt:360,
+  dev:"Eyebrows and hair become more visible.",
+  fact:"Tiny fingerprints are fully formed.",
+  tip:"Start the baby registry while energy is good — future you says thanks."},
+ {size:"Grapefruit", emoji:"🍊", len:27.8, wt:430,
+  dev:"Lungs continue developing.",
+  fact:"The baby can respond to loud noises.",
+  tip:"Dad tip: press a hand on the bump — kicks may be feelable from outside soon!"},
+ {size:"Corn on the cob", emoji:"🌽", len:28.9, wt:500,
+  dev:"The lungs begin producing surfactant.",
+  fact:"The baby's face looks much more newborn-like.",
+  tip:"Tour your hospital or birth center and start a birth-preferences list."},
+ {size:"Acorn squash", emoji:"🌰", len:30, wt:600,
+  dev:"Rapid brain growth occurs.",
+  fact:"The baby may respond to touch.",
+  tip:"A big milestone week for baby's development. Give the bump a high five. ✋"},
+ {size:"Zucchini", emoji:"🥒", len:34.6, wt:660,
+  dev:"Eyes begin opening.",
+  fact:"The baby can detect light changes.",
+  tip:"Glucose screening usually happens between now and week 28 — the drink is… an experience."},
+ {size:"Cauliflower", emoji:"🥦", len:35.6, wt:760,
+  dev:"The brain becomes highly active.",
+  fact:"Hiccups may occur regularly.",
+  tip:"Feel rhythmic little pulses? Those are baby hiccups — totally normal and adorable."},
+ {size:"Eggplant", emoji:"🍆", len:36.6, wt:875,
+  dev:"Fat layers continue building.",
+  fact:"The baby may dream during REM sleep.",
+  tip:"Last week of the second trimester — nursery planning season is here! 🛏️"},
+ {size:"Butternut squash", emoji:"🍠", len:37.6, wt:1000,
+  dev:"Muscles and lungs mature further.",
+  fact:"The baby's kicks may become stronger.",
+  tip:"Third trimester! Appointments move to every two weeks around now."},
+ {size:"Cabbage", emoji:"🥬", len:38.6, wt:1150,
+  dev:"The baby practices breathing motions.",
+  fact:"The baby can grasp with tiny hands.",
+  tip:"Start daily kick counts — the Kicks tab is ready for you! 👣"},
+ {size:"Coconut", emoji:"🥥", len:39.9, wt:1300,
+  dev:"Major weight gain begins.",
+  fact:"All five senses are functioning.",
+  tip:"Baby shower season! Let people spoil you — they truly want to. 🎈"},
+ {size:"Jicama", emoji:"🥔", len:41.1, wt:1500,
+  dev:"Bones are fully developed but still soft.",
+  fact:"Toenails and fingernails are complete.",
+  tip:"Heartburn creeping in? Small meals and propping up pillows can help a lot."},
+ {size:"Pineapple", emoji:"🍍", len:42.4, wt:1700,
+  dev:"Immune system receives antibodies.",
+  fact:"The baby is rapidly gaining fat.",
+  tip:"Install the car seat early and have it checked — many fire stations do it free."},
+ {size:"Cantaloupe", emoji:"🍈", len:43.7, wt:1900,
+  dev:"The lungs near maturity.",
+  fact:"The baby may settle lower into the pelvis soon.",
+  tip:"Pack the hospital bag this month — the checklist in More is waiting. 🧳"},
+ {size:"Honeydew melon", emoji:"🍈", len:45, wt:2100,
+  dev:"Kidneys are fully developed.",
+  fact:"Most organ systems are mature.",
+  tip:"Practice the drive to the hospital and figure out where to park."},
+ {size:"Romaine lettuce", emoji:"🥗", len:46.2, wt:2400,
+  dev:"The baby continues putting on weight.",
+  fact:"The baby practices blinking and gripping.",
+  tip:"Freezer meals made now are a gift to your future sleep-deprived selves."},
+ {size:"Swiss chard", emoji:"🌿", len:47.4, wt:2600,
+  dev:"The baby is considered early term.",
+  fact:"The digestive system is ready for feeding.",
+  tip:"Weekly appointments begin around now. The finish line is in sight!"},
+ {size:"Leek", emoji:"🧅", len:48.6, wt:2900,
+  dev:"The baby is nearly full term.",
+  fact:"The placenta is still providing antibodies.",
+  tip:"Full term this week! 🌟 Rest, hydrate, and keep the phone charged."},
+ {size:"Mini watermelon", emoji:"🍉", len:49.8, wt:3100,
+  dev:"The brain and lungs continue fine-tuning.",
+  fact:"The baby is still growing every day.",
+  tip:"Curb walks, spicy food, all the tricks — but baby picks the birthday. 😄"},
+ {size:"Pumpkin", emoji:"🎃", len:50.7, wt:3300,
+  dev:"Ready for birth!",
+  fact:"The due date is an estimate, not an expiration date.",
+  tip:"Any moment now. Breathe. You two are going to be amazing parents. 💗"},
+ {size:"Pumpkin", emoji:"🎃", len:51.2, wt:3500,
+  dev:"Ready for birth!",
+  fact:"The due date is an estimate, not an expiration date.",
+  tip:"Overdue is still on time. Snuggles are only days away — hang in there!"}
+];
+
+const MILESTONES = [
+ {week:5,  emoji:"💓", label:"Baby's heart starts beating"},
+ {week:8,  emoji:"🩺", label:"First prenatal visit window"},
+ {week:12, emoji:"🎊", label:"First trimester complete"},
+ {week:13, emoji:"🎀", label:"Second trimester begins"},
+ {week:18, emoji:"🦋", label:"First flutters may be felt"},
+ {week:20, emoji:"🎉", label:"Halfway! Anatomy scan week"},
+ {week:24, emoji:"💪", label:"Viability milestone"},
+ {week:28, emoji:"🌅", label:"Third trimester begins"},
+ {week:32, emoji:"🎈", label:"Baby shower season"},
+ {week:36, emoji:"🗓️", label:"Weekly check-ups begin"},
+ {week:37, emoji:"🌟", label:"Full term!"},
+ {week:40, emoji:"👶", label:"Due date — welcome, baby!"}
+];
+
+const DEFAULT_BAG = [
+ {g:"For Courtney", items:["Photo ID + insurance card","Birth plan copies","Comfy robe & slippers","Going-home outfit","Toiletries & lip balm","Phone charger (extra long!)","Snacks & drinks","Nursing bra","Hair ties"]},
+ {g:"For Baby", items:["Going-home outfit (2 sizes)","Swaddle blanket","Hat & mittens","Car seat installed","Burp cloths"]},
+ {g:"For Dad", items:["Change of clothes","Pillow from home","Snacks (labor is long!)","Camera / phone storage cleared","Cash for vending machines"]}
+];
+
+const MOODS = ["🥰","😊","😴","🤢","😭","🤩","😤","🍕"];
+
+/* ============================== state ============================== */
+const store = {
+  get(k, fallback){ try{ const v = localStorage.getItem("bump."+k); return v===null? fallback : JSON.parse(v);}catch(e){ return fallback; } },
+  set(k, v){ try{ localStorage.setItem("bump."+k, JSON.stringify(v)); }catch(e){} }
+};
+let settings = store.get("settings", {due:"2027-03-12", baby:"Baby Padgett", mom:"Courtney"});
+const DAY = 86400000;
+function dueDate(){ const [y,m,d]=settings.due.split("-").map(Number); return new Date(y,m-1,d); }
+function lmpDate(){ return new Date(dueDate().getTime() - 280*DAY); }
+function today0(){ const t=new Date(); return new Date(t.getFullYear(),t.getMonth(),t.getDate()); }
+function gestDays(){ return Math.round((today0() - lmpDate())/DAY); }
+function fmtDate(d, opts){ return d.toLocaleDateString(undefined, opts||{month:"long", day:"numeric", year:"numeric"}); }
+function el(id){ return document.getElementById(id); }
+function aAn(noun){ return (/^[aeiou]/i.test(noun) ? "an " : "a ") + noun; }
+function esc(s){ const d=document.createElement("div"); d.textContent=s; return d.innerHTML; }
+
+/* ============================== today view ============================== */
+function trimesterOf(w){ return w<13 ? 1 : (w<28 ? 2 : 3); }
+const TRI_LABEL = {1:"1st trimester 🌱",2:"2nd trimester 🎀",3:"3rd trimester 🌅"};
+
+function renderToday(){
+  const days = gestDays();
+  const clamped = Math.max(0, Math.min(days, 286));
+  const w = Math.min(40, Math.floor(clamped/7)), d = clamped%7;
+  const wk = WEEKS[w];
+  const due = dueDate();
+  const left = Math.max(0, Math.round((due - today0())/DAY));
+  const pct = Math.max(0, Math.min(100, (days/280)*100));
+
+  el("appTitle").textContent = settings.baby + " 💗";
+  el("appSub").textContent = settings.mom + "’s journey to meeting you";
+  el("todayChip").textContent = fmtDate(today0(), {weekday:"short", month:"short", day:"numeric"});
+
+  el("fruitEmoji").textContent = wk.emoji;
+  el("pctLabel").textContent = pct.toFixed(0) + "% there!";
+  el("weekLine").textContent = days < 0 ? "Coming soon!" : `Week ${w}` + (d ? ` + ${d} ${d===1?"day":"days"}` : "");
+  el("sizeLine").textContent = days > 280
+    ? "Baby is ready when baby is ready! 🎃"
+    : `${settings.baby} is the size of ${aAn(wk.size.toLowerCase())} ${wk.emoji}`;
+
+  const m = el("measureLine");
+  if(wk.len){
+    const inch = (wk.len/2.54).toFixed(1);
+    let wt = "";
+    if(wk.wt){
+      const oz = wk.wt/28.35;
+      wt = oz < 16 ? ` • ~${oz<1?oz.toFixed(1):Math.round(oz)} oz` : ` • ~${Math.floor(oz/16)} lb ${Math.round(oz%16)} oz`;
+    }
+    m.textContent = `~${inch} in${wt}`;
+    m.hidden = false;
+  } else m.hidden = true;
+
+  const tri = trimesterOf(w);
+  const triChip = el("triChip");
+  triChip.textContent = TRI_LABEL[tri];
+  triChip.className = "chip tri" + tri;
+  el("dayChip").textContent = `day ${Math.max(0,days)} of 280`;
+
+  el("countNum").textContent = left;
+  el("countLbl").textContent = left===0 ? "It's due-date day!! 💗🎉" : (left===1 ? "day until we meet you 💗" : "days until we meet you 💗");
+  el("dueLbl").textContent = "Due " + fmtDate(due, {weekday:"long", month:"long", day:"numeric", year:"numeric"});
+
+  el("devText").textContent = wk.dev;
+  el("factText").textContent = wk.fact;
+  el("tipText").textContent = wk.tip;
+
+  const next = MILESTONES.find(ms => ms.week > w || (ms.week===w && d===0 && false));
+  const cur = MILESTONES.find(ms => ms.week === w);
+  if(cur && d===0){ el("mileEmoji").textContent = cur.emoji; el("mileText").textContent = "TODAY: " + cur.label + " 🎉"; }
+  else if(next){
+    const daysTo = next.week*7 - clamped;
+    el("mileEmoji").textContent = next.emoji;
+    el("mileText").textContent = `${next.label} — ${daysTo} ${daysTo===1?"day":"days"} away (week ${next.week})`;
+  } else { el("mileEmoji").textContent = "👶"; el("mileText").textContent = "Next stop: baby snuggles!"; }
+
+  // ring
+  const C = 2*Math.PI*97;
+  const ring = el("ringFill");
+  ring.style.strokeDasharray = C;
+  ring.style.strokeDashoffset = C;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{ ring.style.strokeDashoffset = C*(1 - pct/100); }));
+
+  // new-week celebration
+  const lastWeek = store.get("lastSeenWeek", null);
+  if(lastWeek !== null && w > lastWeek && days >= 0){
+    setTimeout(()=>{ confetti(); toast(`New week! ${settings.baby} is now the size of ${aAn(wk.size.toLowerCase())} ${wk.emoji}`); }, 600);
+  }
+  store.set("lastSeenWeek", w);
+}
+
+function initHearts(){
+  const box = el("hearts");
+  const glyphs = ["💗","🤍","💛","🩷","✨"];
+  for(let i=0;i<7;i++){
+    const s = document.createElement("span");
+    s.textContent = glyphs[i % glyphs.length];
+    s.style.left = (8 + i*13) + "%";
+    s.style.animationDelay = (i*1.4) + "s";
+    s.style.animationDuration = (8 + (i%3)*2) + "s";
+    box.appendChild(s);
+  }
+}
+
+/* ============================== weeks view ============================== */
+function renderWeeks(){
+  const days = gestDays();
+  const curW = Math.max(0, Math.min(40, Math.floor(days/7)));
+  const lmp = lmpDate();
+  const list = el("weeksList");
+  list.innerHTML = "";
+  const triNames = {1:"First trimester 🌱", 2:"Second trimester 🎀", 3:"Third trimester 🌅"};
+  let lastTri = 0;
+  for(let w=0; w<=40; w++){
+    const tri = trimesterOf(w);
+    if(tri !== lastTri){
+      lastTri = tri;
+      const h = document.createElement("div");
+      h.className = "tri-head"; h.textContent = triNames[tri];
+      list.appendChild(h);
+    }
+    const wk = WEEKS[w];
+    const btn = document.createElement("button");
+    btn.className = "wk" + (w===curW ? " now" : (w<curW ? " past" : ""));
+    btn.innerHTML = `<span class="em">${wk.emoji}</span>
+      <span><span class="t">Week ${w}</span><br><span class="s">${esc(wk.size)}</span></span>
+      <span class="arr">›</span>`;
+    btn.addEventListener("click", ()=>openSheet(w));
+    list.appendChild(btn);
+    if(w===curW) requestAnimationFrame(()=>{ if(el("view-weeks").classList.contains("active")) btn.scrollIntoView({block:"center"}); });
+  }
+}
+
+function openSheet(w){
+  const wk = WEEKS[w];
+  const lmp = lmpDate();
+  const start = new Date(lmp.getTime() + w*7*DAY);
+  const end = new Date(start.getTime() + 6*DAY);
+  el("shEmoji").textContent = wk.emoji;
+  el("shTitle").textContent = "Week " + w;
+  el("shDates").textContent = fmtDate(start,{month:"short",day:"numeric"}) + " – " + fmtDate(end,{month:"short",day:"numeric",year:"numeric"});
+  let size = wk.size;
+  if(wk.len){
+    const inch=(wk.len/2.54).toFixed(1);
+    size += ` — about ${inch} in`;
+    if(wk.wt){ const oz=wk.wt/28.35; size += oz<16 ? `, ${oz<1?oz.toFixed(1):Math.round(oz)} oz` : `, ${Math.floor(oz/16)} lb ${Math.round(oz%16)} oz`; }
+  }
+  el("shSize").textContent = size;
+  el("shDev").textContent = wk.dev;
+  el("shFact").textContent = wk.fact;
+  el("shTip").textContent = wk.tip;
+  el("sheetBack").classList.add("open");
+  el("sheet").classList.add("open");
+}
+function closeSheet(){ el("sheetBack").classList.remove("open"); el("sheet").classList.remove("open"); }
+el("sheetBack").addEventListener("click", closeSheet);
+el("shClose").addEventListener("click", closeSheet);
+
+/* ============================== kicks ============================== */
+let kick = store.get("kickSession", {count:0, start:null});
+function renderKick(){
+  el("kickNum").textContent = kick.count;
+  if(kick.count===0){ el("kickMeta").textContent = "Tap the heart when baby kicks 💕"; return; }
+  const mins = Math.max(1, Math.round((Date.now()-kick.start)/60000));
+  el("kickMeta").textContent = `${kick.count} ${kick.count===1?"kick":"kicks"} in ${mins} min` + (kick.count>=10 ? " — goal reached! 🎉" : "");
+}
+el("kickBtn").addEventListener("click", ()=>{
+  if(kick.count===0) kick.start = Date.now();
+  kick.count++;
+  store.set("kickSession", kick);
+  renderKick();
+  if(kick.count===10){ confetti(); toast("10 kicks! Strong little one 💪"); }
+});
+el("kickReset").addEventListener("click", ()=>{ kick={count:0,start:null}; store.set("kickSession",kick); renderKick(); });
+el("kickSave").addEventListener("click", ()=>{
+  if(kick.count===0){ toast("No kicks counted yet!"); return; }
+  const hist = store.get("kickHistory", []);
+  hist.unshift({when:Date.now(), count:kick.count, mins:Math.max(1,Math.round((Date.now()-kick.start)/60000))});
+  store.set("kickHistory", hist.slice(0,50));
+  kick={count:0,start:null}; store.set("kickSession",kick);
+  renderKick(); renderKickHist(); toast("Session saved 👣");
+});
+function renderKickHist(){
+  const hist = store.get("kickHistory", []);
+  const box = el("kickHist");
+  if(!hist.length){ box.innerHTML = '<div class="empty">No sessions yet — baby is still warming up! 🐣</div>'; return; }
+  box.innerHTML = hist.map(h=>{
+    const d=new Date(h.when);
+    return `<div class="row"><span class="when">${fmtDate(d,{month:"short",day:"numeric"})} ${d.toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"})}</span><span class="meta">${h.count} kicks • ${h.mins} min</span></div>`;
+  }).join("");
+}
+
+/* ============================== appointments ============================== */
+function renderAppts(){
+  const appts = store.get("appts", []).sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time));
+  const box = el("apptList");
+  if(!appts.length){ box.innerHTML = '<div class="empty">Nothing scheduled yet.</div>'; return; }
+  box.innerHTML = appts.map((a,i)=>{
+    const [y,mo,dd]=a.date.split("-").map(Number);
+    const d=new Date(y,mo-1,dd);
+    const past = d < today0();
+    const t = a.time ? " • " + new Date(2000,0,1,+a.time.split(":")[0],+a.time.split(":")[1]).toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"}) : "";
+    return `<div class="item" ${past?'style="opacity:.55"':''}><span>🗓️</span><span class="grow"><strong>${esc(a.title)}</strong><br><span class="sub">${fmtDate(d,{weekday:"short",month:"short",day:"numeric"})}${t}</span></span><button class="del" data-i="${i}" aria-label="Delete appointment">✕</button></div>`;
+  }).join("");
+  box.querySelectorAll(".del").forEach(b=>b.addEventListener("click",e=>{
+    const appts2 = store.get("appts", []).sort((a,b)=> (a.date+a.time).localeCompare(b.date+b.time));
+    appts2.splice(+e.currentTarget.dataset.i,1);
+    store.set("appts",appts2); renderAppts();
+  }));
+}
+el("apptAdd").addEventListener("click", ()=>{
+  const title = el("apptTitle").value.trim(), date = el("apptDate").value;
+  if(!title || !date){ toast("Give it a name and a date 🙂"); return; }
+  const appts = store.get("appts", []);
+  appts.push({title, date, time: el("apptTime").value || ""});
+  store.set("appts", appts);
+  el("apptTitle").value=""; el("apptDate").value=""; el("apptTime").value="";
+  renderAppts(); toast("Appointment added 🗓️");
+});
+
+/* ============================== journal ============================== */
+let selMood = "🥰";
+function initMoods(){
+  const row = el("moodRow");
+  row.innerHTML = MOODS.map(m=>`<button class="mood${m===selMood?" sel":""}" data-m="${m}" role="radio" aria-checked="${m===selMood}" aria-label="Mood ${m}">${m}</button>`).join("");
+  row.querySelectorAll(".mood").forEach(b=>b.addEventListener("click",()=>{ selMood=b.dataset.m; initMoods(); }));
+}
+el("journalAdd").addEventListener("click", ()=>{
+  const text = el("journalText").value.trim();
+  if(!text){ toast("Write a little something first ✍️"); return; }
+  const entries = store.get("journal", []);
+  const days = gestDays();
+  entries.unshift({when:Date.now(), mood:selMood, text, week:Math.max(0,Math.floor(days/7))});
+  store.set("journal", entries);
+  el("journalText").value="";
+  renderJournal(); toast("Saved to the journal 📔");
+});
+function renderJournal(){
+  const entries = store.get("journal", []);
+  const box = el("journalList");
+  if(!entries.length){ box.innerHTML=""; return; }
+  box.innerHTML = entries.slice(0,30).map((e,i)=>
+    `<div class="item"><span style="font-size:22px">${e.mood}</span><span class="grow">${esc(e.text)}<br><span class="sub">${fmtDate(new Date(e.when),{month:"short",day:"numeric"})} • week ${e.week}</span></span><button class="del" data-i="${i}" aria-label="Delete entry">✕</button></div>`
+  ).join("");
+  box.querySelectorAll(".del").forEach(b=>b.addEventListener("click",ev=>{
+    const es = store.get("journal", []); es.splice(+ev.currentTarget.dataset.i,1);
+    store.set("journal",es); renderJournal();
+  }));
+}
+
+/* ============================== names ============================== */
+let nameCat = "girl";
+el("nameSeg").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{
+  nameCat = b.dataset.cat;
+  el("nameSeg").querySelectorAll("button").forEach(x=>x.classList.toggle("sel", x===b));
+}));
+el("nameAdd").addEventListener("click", ()=>{
+  const n = el("nameInput").value.trim();
+  if(!n){ toast("Type a name first 💭"); return; }
+  const names = store.get("names", []);
+  names.push({name:n, cat:nameCat, fav:false});
+  store.set("names", names);
+  el("nameInput").value="";
+  renderNames(); toast(`"${n}" added 👶`);
+});
+function renderNames(){
+  const names = store.get("names", []);
+  const box = el("nameList");
+  if(!names.length){ box.innerHTML='<div class="empty">Start your shortlist! Tap the heart on favorites.</div>'; return; }
+  const sorted = names.map((n,i)=>({...n,i})).sort((a,b)=> (b.fav-a.fav) || a.name.localeCompare(b.name));
+  const tag = {girl:"🎀 girl", boy:"💙 boy", either:"🌈 either"};
+  box.innerHTML = sorted.map(n=>
+    `<div class="item"><button class="heart" data-i="${n.i}" aria-label="${n.fav?"Unfavorite":"Favorite"} ${esc(n.name)}">${n.fav?"💗":"🤍"}</button><span class="grow"><strong>${esc(n.name)}</strong></span><span class="tag ${n.cat}">${tag[n.cat]}</span><button class="del" data-i="${n.i}" aria-label="Delete ${esc(n.name)}">✕</button></div>`
+  ).join("");
+  box.querySelectorAll(".heart").forEach(b=>b.addEventListener("click",()=>{
+    const ns = store.get("names", []); ns[+b.dataset.i].fav = !ns[+b.dataset.i].fav;
+    store.set("names",ns); renderNames();
+  }));
+  box.querySelectorAll(".del").forEach(b=>b.addEventListener("click",()=>{
+    const ns = store.get("names", []); ns.splice(+b.dataset.i,1);
+    store.set("names",ns); renderNames();
+  }));
+}
+
+/* ============================== hospital bag ============================== */
+function defaultBag(){
+  const out=[];
+  DEFAULT_BAG.forEach(g=>g.items.forEach(it=>out.push({g:g.g, label:it, done:false})));
+  return out;
+}
+function renderBag(){
+  let bag = store.get("bag", null);
+  if(!bag){ bag = defaultBag(); store.set("bag", bag); }
+  const box = el("bagList");
+  const done = bag.filter(b=>b.done).length;
+  el("bagPct").textContent = `${done}/${bag.length} packed`;
+  let html = "", lastG = "";
+  bag.forEach((b,i)=>{
+    if(b.g !== lastG){ lastG=b.g; html += `<div class="tri-head" style="margin:14px 0 2px">${esc(b.g)}</div>`; }
+    html += `<button class="check${b.done?" done":""}" data-i="${i}"><span class="box">${b.done?"✓":""}</span><span class="lbl">${esc(b.label)}</span></button>`;
+  });
+  box.innerHTML = html;
+  box.querySelectorAll(".check").forEach(btn=>btn.addEventListener("click",()=>{
+    const bg = store.get("bag", []); bg[+btn.dataset.i].done = !bg[+btn.dataset.i].done;
+    store.set("bag", bg); renderBag();
+    if(bg.every(x=>x.done)){ confetti(); toast("Bag fully packed — you're SO ready! 🧳🎉"); }
+  }));
+}
+el("bagAdd").addEventListener("click", ()=>{
+  const v = el("bagInput").value.trim();
+  if(!v){ toast("Type an item first 🙂"); return; }
+  const bag = store.get("bag", defaultBag());
+  bag.push({g:"Extras", label:v, done:false});
+  store.set("bag", bag); el("bagInput").value=""; renderBag();
+});
+
+/* ============================== settings ============================== */
+function loadSettings(){
+  el("setDue").value = settings.due;
+  el("setBaby").value = settings.baby;
+  el("setMom").value = settings.mom;
+}
+el("setSave").addEventListener("click", ()=>{
+  if(el("setDue").value) settings.due = el("setDue").value;
+  settings.baby = el("setBaby").value.trim() || "Baby Padgett";
+  settings.mom = el("setMom").value.trim() || "Courtney";
+  store.set("settings", settings);
+  renderToday(); renderWeeks(); toast("Settings saved ✨");
+});
+el("setReset").addEventListener("click", ()=>{
+  if(!confirm("Erase all saved data (journal, kicks, names, checklist)? This can't be undone.")) return;
+  Object.keys(localStorage).filter(k=>k.startsWith("bump.")).forEach(k=>localStorage.removeItem(k));
+  location.reload();
+});
+
+/* ============================== tabs ============================== */
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click", ()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected", x===t ? "true":"false"));
+  document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active", v.id === "view-"+t.dataset.view));
+  window.scrollTo({top:0});
+  if(t.dataset.view==="weeks") renderWeeks();
+}));
+
+/* ============================== confetti & toast ============================== */
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+function confetti(){
+  if(reduceMotion) return;
+  const cv = el("confetti"), ctx = cv.getContext("2d");
+  cv.width = innerWidth; cv.height = innerHeight;
+  const colors = ["#E4718E","#F2A25C","#8FC8B0","#B9A2DE","#F9D9E1"];
+  const parts = Array.from({length:120},()=>({
+    x:Math.random()*cv.width, y:-20-Math.random()*cv.height*.5,
+    r:4+Math.random()*6, c:colors[Math.floor(Math.random()*colors.length)],
+    vy:2+Math.random()*3.5, vx:(Math.random()-.5)*2.2, rot:Math.random()*Math.PI, vr:(Math.random()-.5)*.2,
+    heart:Math.random()<.25
+  }));
+  let frames = 0;
+  (function tick(){
+    ctx.clearRect(0,0,cv.width,cv.height);
+    parts.forEach(p=>{
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.vr;
+      ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.rot);
+      if(p.heart){ ctx.font = (p.r*2.4)+"px serif"; ctx.fillText("💗", -p.r, p.r); }
+      else{ ctx.fillStyle=p.c; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*1.4); }
+      ctx.restore();
+    });
+    if(++frames < 170) requestAnimationFrame(tick);
+    else ctx.clearRect(0,0,cv.width,cv.height);
+  })();
+}
+let toastTimer;
+function toast(msg){
+  const t = el("toast");
+  t.textContent = msg; t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove("show"), 2800);
+}
+el("celebrateBtn").addEventListener("click", ()=>{
+  confetti();
+  const days = gestDays();
+  const w = Math.max(0,Math.min(40,Math.floor(days/7)));
+  toast(`Week ${w} with ${settings.baby} — every day counts! 💗`);
+});
+
+/* ============================== boot ============================== */
+initHearts(); initMoods();
+renderToday(); renderWeeks(); renderKick(); renderKickHist();
+renderAppts(); renderJournal(); renderNames(); renderBag(); loadSettings();
+
+// offline support when hosted (silently skipped inside the artifact sandbox)
+if("serviceWorker" in navigator && location.protocol.startsWith("http")){
+  navigator.serviceWorker.register("sw.js").catch(()=>{});
+}
+</script>
+</body>
+</html>
