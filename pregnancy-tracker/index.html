@@ -147,6 +147,12 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 .chip.tri3{background:var(--lav-soft); color:var(--lav)}
 .chip.count{background:var(--sun-soft); color:var(--sun)}
 
+/* stats */
+.statgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px}
+.stat{background:var(--bg2); border-radius:16px; padding:12px 13px}
+.stat .v{font-size:19px; font-weight:800; color:var(--sun); line-height:1.25; font-variant-numeric:tabular-nums}
+.stat .l{font-size:11.5px; font-weight:700; color:var(--ink2); letter-spacing:.03em; margin-top:2px}
+
 /* countdown */
 .count-card{display:flex; align-items:center; gap:16px}
 .count-num{
@@ -378,13 +384,23 @@ textarea{resize:vertical; min-height:64px}
     </section>
 
     <section class="card">
-      <h3>✨ Fun fact</h3>
+      <h3>✨ Fun fact of the day</h3>
       <p id="factText"></p>
+    </section>
+
+    <section class="card">
+      <h3>📊 Today&rsquo;s numbers</h3>
+      <div class="statgrid" id="statGrid"></div>
     </section>
 
     <section class="card">
       <h3>💛 For mom this week</h3>
       <p id="tipText"></p>
+    </section>
+
+    <section class="card">
+      <h3>💌 Little love note</h3>
+      <p class="big" id="loveText"></p>
     </section>
 
     <section class="card mile">
@@ -723,6 +739,116 @@ const DEFAULT_BAG = [
 
 const MOODS = ["🥰","😊","😴","🤢","😭","🤩","😤","🍕"];
 
+/* A new fact every single day — picked by the calendar, so tomorrow is always different. */
+const DAILY_FACTS = [
+ "Babies are born with about 300 bones — adults only have 206. Some fuse together as they grow.",
+ "A baby's fingerprints are fully formed around week 17 and never change for the rest of their life.",
+ "From inside, baby can hear Courtney's heartbeat, her voice, and even her stomach growling.",
+ "Babies get hiccups in the womb — by the third trimester, some hiccup every single day.",
+ "Babies can cry in the womb from around week 26 — silent practice for the big debut.",
+ "A newborn's head makes up about one quarter of its entire body length.",
+ "Babies dream in the womb — REM sleep begins around week 28.",
+ "Baby swallows amniotic fluid to practice digestion, starting around week 12.",
+ "The word 'fetus' comes from the Latin for 'little offspring.'",
+ "Baby's taste buds work by week 15 — babies gulp more when the fluid tastes sweet!",
+ "Scent molecules travel through amniotic fluid, so baby can 'smell' what Courtney eats.",
+ "The heart is the first organ to work — it will beat tens of millions of times before birth.",
+ "Newborns recognize songs that were played to the bump — make that playlist count!",
+ "A full-term pregnancy lasts about ten lunar months — the moon will lap you ten times.",
+ "Late in pregnancy, kicks can be strong enough to see from the outside. Popcorn belly!",
+ "Baby's skeleton starts as soft cartilage — bones keep hardening into their mid-20s.",
+ "Vernix caseosa, baby's waxy coating, literally means 'cheesy varnish.' Nature's moisturizer.",
+ "Babies practice opening and closing their eyes from around week 27.",
+ "The umbilical cord has no pain nerves — cutting it doesn't hurt anyone.",
+ "Babies have been seen yawning on ultrasounds from around week 24.",
+ "Courtney's blood volume will increase by almost 50% during this pregnancy. Superhero stuff.",
+ "The placenta is a brand-new organ grown from scratch — the only one the body makes and then retires.",
+ "Baby's heart beats 110–160 times a minute — nearly twice as fast as an adult's.",
+ "The hormone relaxin can make feet grow up to half a shoe size. Shopping opportunity!",
+ "Touch is baby's first sense, developing around week 8 — starting with the face.",
+ "By week 25, a familiar voice can actually calm baby's heart rate. Keep talking to the bump!",
+ "Memory starts in the womb — newborns prefer sounds they heard before birth.",
+ "Baby's skin stays translucent until fat builds up, around week 30.",
+ "Babies grab and play with the umbilical cord — the womb's first toy.",
+ "At peak growth, baby's brain adds up to 250,000 neurons per minute.",
+ "At birth, a baby's brain is already 25% of its adult size.",
+ "'Quickening' is the centuries-old word for the first kicks a mother feels.",
+ "By full term, baby swallows up to half a liter of amniotic fluid a day.",
+ "The soft spots on baby's skull let it flex during birth — they close by around 18 months.",
+ "Newborns see best at 8–12 inches away — exactly the distance to the face of whoever's holding them.",
+ "Babies are born nearsighted, but their hearing is nearly perfect from day one.",
+ "Baby's sex was set at the very moment of conception — ultrasounds just reveal the secret around week 18–20.",
+ "Colostrum — the first milk — can start being made as early as mid-pregnancy.",
+ "The pregnancy 'glow' is real: extra blood flow plus extra oil equals extra shine.",
+ "About 15% of a newborn's body weight is fat, and most of it is gained in the last 8 weeks.",
+ "Womb hiccups may be baby's way of training the diaphragm to breathe.",
+ "It's not quiet in there — the womb is about as loud as a vacuum cleaner.",
+ "Many babies' eye color changes during the first year after birth.",
+ "Fingernails grow so well in the womb that many newborns need a tiny manicure in week one.",
+ "The umbilical cord grows to about 20–24 inches — roughly as long as the baby itself.",
+ "Babies practice smiling in the womb, before they've ever seen a smile.",
+ "Baby will roughly double in weight during the last 10 weeks alone.",
+ "The heart begins as a simple tube, then folds itself into four perfect chambers.",
+ "Baby hears low pitches first — voices sound like they're underwater. Courtney's is the clearest.",
+ "In the womb, baby sleeps in cycles of about 40 minutes, napping most of the day.",
+ "Only about 1 in 20 babies actually arrives on the due date. Babies love surprises.",
+ "First babies tend to arrive a few days past the due date — fashionably late.",
+ "At its peak around week 34, baby floats in almost a quart of amniotic fluid.",
+ "Courtney's heart physically grows a little during pregnancy to pump the extra blood.",
+ "March babies share a birthday month with Einstein, Michelangelo, and Lady Gaga. Great company.",
+ "A newborn's stomach holds only 1–2 teaspoons on day one — the size of a cherry.",
+ "Room service, 24/7: baby gets every meal delivered through the cord, no chewing required.",
+ "Shine a flashlight on the bump in the third trimester and you might get a kick in reply.",
+ "About 1 in 2,000 babies is born with a tooth already showing!",
+ "A newborn's grasp reflex is strong enough to support its own weight. (Please don't test this.)",
+ "Both baby teeth and the buds of adult teeth form before birth. A full double set, pre-ordered.",
+ "Newborns cry without tears at first — tear ducts finish developing around one month old.",
+ "A few of baby's cells will stay in Courtney's body for decades — a little bit of baby, forever.",
+ "The womb holds steady around 99.6°F — baby's personal climate control.",
+ "At term, the placenta does the job of lungs, kidneys, and liver all at once.",
+ "Baby's hands can grasp by week 16 — and by birth the grip is remarkably strong.",
+ "The average newborn is about 7.5 pounds and 20 inches — a mini watermelon with excellent PR.",
+ "Fine hair called lanugo covers baby like peach fuzz, then mostly sheds before birth.",
+ "Babies urinate into the amniotic fluid from about week 10. Yes, really. It's sterile — and recycled!",
+ "Amniotic fluid is completely refreshed several times a day by the third trimester.",
+ "By the last month, baby takes up so much room that Courtney's organs politely rearrange themselves.",
+ "A baby's first laugh usually comes around 3–4 months after birth — worth the wait."
+];
+
+/* A tiny daily love note — {baby} and {parents} are filled in from Settings. */
+const LOVE_NOTES = [
+ "Hi {baby}! You're a little more you today than you were yesterday. 💛",
+ "Dear {baby}: {parents} already love you more than you will ever be able to measure.",
+ "Today's job, {baby}: grow, wiggle, repeat. You're doing amazing.",
+ "One day we'll tell you about today — an ordinary day we spent thinking about you.",
+ "{baby}, you are already the best thing {parents} have ever made together.",
+ "Growing a person is slow, quiet, spectacular work. Well done today, Courtney.",
+ "Every single cell of you is brand new, {baby}, and somehow you already feel like home.",
+ "Reminder: rest counts as productivity when you're building a human.",
+ "{baby}, the world has sunsets, dogs, pancakes, and {parents}. You're going to love it here.",
+ "Some love stories start with hello. Yours started with a heartbeat, {baby}.",
+ "Dear {baby}: we haven't met, and you're already our favorite.",
+ "Today {parents} are one day closer to holding you. That's the whole news. It's great news.",
+ "You are so small, {baby}, and so completely enormous in our hearts.",
+ "Note to {baby}: your parents are already practicing lullabies and truly terrible puns. Prepare accordingly.",
+ "Courtney's body is doing quiet miracles today. Be gentle with her, world.",
+ "{baby}, you're invited to the rest of our lives. Dress code: onesie.",
+ "The nursery can wait. The love is already fully furnished.",
+ "Hey {baby} — grow strong, take your time. We'll be right here.",
+ "Somewhere between one heartbeat and the next, everything changed for {parents}.",
+ "You're the size of produce, {baby}, but the weight of a whole future.",
+ "Today's forecast: 100% chance of being loved, {baby}.",
+ "Dear {baby}: we promise pillow forts, bedtime stories, and unconditional everything.",
+ "{parents} made a wish. It's currently doing somersaults in Courtney's belly.",
+ "Little {baby}, even your kicks will be applauded here. Tough crowd nowhere in sight.",
+ "One team, three hearts (one of them very tiny and very fast). Go team.",
+ "{baby}, you already have grandparents bragging about you. You've done nothing yet. Imagine later.",
+ "{parents} + {baby}: the best math we've ever done.",
+ "Patience, {parents}. The best things take about 40 weeks.",
+ "Dear {baby}, every day you're in there, we love you louder out here.",
+ "You're going to have so many firsts, {baby}. Today you're one day closer to all of them."
+];
+
 /* ============================== state ============================== */
 const store = {
   get(k, fallback){ try{ const v = localStorage.getItem("bump."+k); return v===null? fallback : JSON.parse(v);}catch(e){ return fallback; } },
@@ -787,8 +913,45 @@ function renderToday(){
   el("dueLbl").textContent = "Due " + fmtDate(due, {weekday:"long", month:"long", day:"numeric", year:"numeric"});
 
   el("devText").textContent = wk.dev;
-  el("factText").textContent = wk.fact;
   el("tipText").textContent = wk.tip;
+
+  /* ------- daily-rotating content (same all day, new tomorrow) ------- */
+  const di = Math.max(0, days);
+  el("factText").textContent = DAILY_FACTS[di % DAILY_FACTS.length];
+  el("loveText").textContent = LOVE_NOTES[di % LOVE_NOTES.length]
+    .replace(/\{baby\}/g, settings.baby).replace(/\{parents\}/g, settings.parents);
+
+  // stat tiles
+  const sinceConception = days - 14;
+  const stat1 = sinceConception >= 0
+    ? {v: sinceConception, l:"days since conception 💫"}
+    : {v: -sinceConception, l:"days until conception 💫"};
+  const stat2 = {v: left, l: left===1 ? "sleep until due date 🌙" : "sleeps until due date 🌙"};
+  const HEART_START = 36;                       // heart starts beating ~5w1d
+  let stat3;
+  if(days >= HEART_START){
+    const beats = (days - HEART_START) * 24 * 60 * 140;
+    stat3 = {v: beats >= 1e6 ? (beats/1e6).toFixed(1) + "M" : beats.toLocaleString(), l:"heartbeats so far 💓"};
+  } else {
+    stat3 = {v: HEART_START - days, l:"days until first heartbeat 💓"};
+  }
+  // rotating bonus stat — a different one each day
+  const bonus = [];
+  let wknds = 0;
+  for(let t = new Date(today0()); t <= due; t = new Date(t.getTime()+DAY)){ if(t.getDay()===6) wknds++; }
+  bonus.push({v: wknds, l:"weekends left to enjoy 🛋️"});
+  bonus.push({v: "Month " + Math.min(9, Math.floor(Math.max(0,days)/30.4) + 1), l:"of 9 on the journey 🗓️"});
+  if(w < 13) bonus.push({v: 13*7 - clamped, l:"days to 2nd trimester 🌼"});
+  else if(w < 28) bonus.push({v: 28*7 - clamped, l:"days to 3rd trimester 🌅"});
+  else bonus.push({v: "3rd", l:"trimester — home stretch! 🌅"});
+  if(w < 20) bonus.push({v: 20*7 - clamped, l:"days until halfway 🎉"});
+  if(w < 37) bonus.push({v: 37*7 - clamped, l:"days until full term 🌟"});
+  bonus.push({v: 7 - d, l: (7-d)===1 ? "day until a new fruit 🍉" : "days until a new fruit 🍉"});
+  bonus.push({v: (100 - pct).toFixed(0) + "%", l:"of the adventure still ahead 🧭"});
+  const stat4 = bonus[di % bonus.length];
+  el("statGrid").innerHTML = [stat1, stat2, stat3, stat4].map(s =>
+    `<div class="stat"><div class="v">${s.v}</div><div class="l">${s.l}</div></div>`
+  ).join("");
 
   const next = MILESTONES.find(ms => ms.week > w || (ms.week===w && d===0 && false));
   const cur = MILESTONES.find(ms => ms.week === w);
