@@ -6,10 +6,15 @@ Due date: **March 12, 2027** 🎃→👶
 Built from the family pregnancy calendar spreadsheet — all 41 weeks of baby
 sizes (poppy seed to pumpkin!), development notes, and fun facts, plus:
 
-- **Today** — live progress ring, baby-size fruit of the week, countdown to the
-  due date, what's developing, fun fact, weekly tip for mom, and the next
-  milestone. Confetti when a new week begins. 🎉
-- **Weeks** — browse all 41 weeks by trimester, with dates, sizes, and details.
+- **Today** — live progress ring, baby-size fruit of the week, an illustration
+  of what baby looks like right now, countdown to the due date, specific
+  "developing this week" details, daily-rotating fun facts / stats / love
+  notes, a weekly tip for Courtney, and the next milestone. Confetti when a
+  new week begins. 🎉
+- **Days** — all 280 days in a week-per-row grid that checks days off as they
+  pass, with a pulsing "today" square.
+- **Weeks** — browse all 41 weeks by trimester: dates, sizes, illustrations,
+  and detailed development notes.
 - **Kicks** — a kick counter with saved sessions (for ~week 24+).
 - **More** — appointments, a mood journal, baby name shortlist with favorites,
   a pre-filled hospital bag checklist, and settings (due date, names).
@@ -29,5 +34,5 @@ no servers, no data leaves the phone.
 ## Notes
 
 - Dates are derived from the due date (editable in ⚙️ Settings).
-- Light and dark mode both supported — dark is a cozy "plum night."
+- Sea-glass & coral palette; dark mode is a calm "deep lagoon."
 - For joy, not medical advice. 💕
