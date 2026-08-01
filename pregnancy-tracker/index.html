@@ -66,7 +66,7 @@
   --ring-track:#26433C;
 }
 *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
-html,body{margin:0; padding:0}
+html,body{margin:0; padding:0; overflow-x:hidden; max-width:100vw; overscroll-behavior-x:none}
 body{
   background:var(--bg); color:var(--ink);
   font-family:ui-rounded,"SF Pro Rounded",-apple-system,"Nunito","Segoe UI",system-ui,sans-serif;
@@ -83,7 +83,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 /* ---------- header ---------- */
 .hdr{position:relative; padding:26px 4px 6px; overflow:visible}
 .hdr .blob{
-  position:absolute; inset:-60px -40px auto -40px; height:220px; z-index:-1;
+  position:absolute; inset:-60px 0 auto 0; height:220px; z-index:-1;
   background:
     radial-gradient(50% 70% at 18% 30%, var(--teal-soft) 0%, transparent 70%),
     radial-gradient(45% 60% at 80% 12%, var(--lav-soft) 0%, transparent 70%),
@@ -167,7 +167,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 
 /* stats */
 .statgrid{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:8px}
-.stat{background:var(--bg2); border-radius:16px; padding:12px 13px}
+.stat{background:var(--bg2); border-radius:16px; padding:12px 13px; min-width:0}
 .stat .v{font-size:19px; font-weight:800; color:var(--teal); line-height:1.25; font-variant-numeric:tabular-nums}
 .stat .l{font-size:11.5px; font-weight:700; color:var(--ink2); letter-spacing:.03em; margin-top:2px}
 
@@ -298,7 +298,7 @@ button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-
 
 /* ---------- more / lists ---------- */
 .formrow{display:flex; gap:8px; margin-top:12px}
-.formrow input[type=text]{flex:1; min-width:0}
+.formrow input{flex:1; min-width:0; width:auto}
 input[type=text],input[type=date],input[type=time],textarea,select{
   background:var(--bg2); border:1px solid var(--line); border-radius:14px;
   padding:11px 13px; font-size:15.5px; width:100%;
@@ -575,167 +575,167 @@ textarea{resize:vertical; min-height:64px}
 /* Week-by-week guide adapted from Courtney's pregnancy calendar.
    len = approx length in cm, wt = approx weight in grams (null = too tiny!) */
 const WEEKS = [
- {size:"Poppy seed", emoji:"✨", len:null, wt:null,
+ {size:"a twinkle in our eyes", emoji:"✨", len:null, wt:null,
   dev:"Fertilization is approaching and the uterine lining is preparing.",
   fact:"Your baby's genetic blueprint will soon be completely unique.",
   tip:"Start (or keep taking) a prenatal vitamin with folic acid every day."},
- {size:"Sesame seed", emoji:"🌾", len:null, wt:null,
+ {size:"a twinkle (still!)", emoji:"✨", len:null, wt:null,
   dev:"Ovulation and fertilization timing window.",
   fact:"Half of the baby's DNA will come from each parent.",
   tip:"Gentle movement, good sleep, and plenty of water set the stage beautifully."},
- {size:"Chia seed", emoji:"🌱", len:null, wt:null,
+ {size:"a single amazing cell", emoji:"🔬", len:null, wt:null,
   dev:"The fertilized egg begins rapid cell division.",
   fact:"The blastocyst is traveling toward the uterus.",
   tip:"Caffeine in moderation — most guidance says under 200mg a day."},
- {size:"Poppy seed", emoji:"✨", len:null, wt:null,
+ {size:"a pinhead", emoji:"📍", len:null, wt:null,
   dev:"Implantation occurs in the uterine lining.",
   fact:"hCG production begins around now.",
   tip:"Light cramping can be normal this week. Be extra kind to yourself."},
- {size:"Apple seed", emoji:"🫘", len:0.2, wt:null,
+ {size:"a poppy seed", emoji:"🌱", len:0.2, wt:null,
   dev:"The neural tube begins forming.",
   fact:"The future brain and spinal cord are developing.",
   tip:"A positive test may show now! Schedule that first prenatal visit. 🎉"},
- {size:"Sweet pea", emoji:"🫛", len:0.3, wt:null,
+ {size:"a peppercorn", emoji:"🌶️", len:0.3, wt:null,
   dev:"The heart begins beating.",
   fact:"The heartbeat can sometimes be detected by ultrasound.",
   tip:"Tiredness is real — early pregnancy is hard work. Naps are productive."},
- {size:"Blueberry", emoji:"🫐", len:0.6, wt:null,
+ {size:"a pencil eraser", emoji:"✏️", len:0.6, wt:null,
   dev:"Brain growth accelerates and limb buds appear.",
   fact:"Your baby already has tiny facial features forming.",
   tip:"Small, frequent snacks (crackers by the bed!) help tame queasiness."},
- {size:"Raspberry", emoji:"🍒", len:1.0, wt:null,
+ {size:"a coffee bean", emoji:"☕", len:1.0, wt:null,
   dev:"Tiny fingers and toes are developing.",
   fact:"The embryo will soon officially be called a fetus.",
   tip:"Ginger tea and vitamin B6 are classic helpers for morning sickness."},
- {size:"Green olive", emoji:"🫒", len:1.6, wt:1,
+ {size:"a kidney bean", emoji:"🫘", len:1.6, wt:1,
   dev:"Major organs are forming.",
   fact:"The baby may begin tiny spontaneous movements.",
   tip:"First prenatal appointment often lands around now — bring your questions!"},
- {size:"Strawberry", emoji:"🍓", len:2.3, wt:2,
+ {size:"a quarter", emoji:"🪙", len:2.3, wt:2,
   dev:"The placenta is taking over hormone production.",
   fact:"Tiny tooth buds are already forming.",
   tip:"A supportive bra is a small purchase with a big payoff right now."},
- {size:"Lime", emoji:"🍋‍🟩", len:3.1, wt:4,
+ {size:"a walnut", emoji:"🌰", len:3.1, wt:4,
   dev:"Hands and feet are fully formed.",
   fact:"The baby can begin making small movements.",
   tip:"You might hear the heartbeat on a doppler at this visit. Bring tissues. 🥹"},
- {size:"Plum", emoji:"🍇", len:4.1, wt:7,
+ {size:"a golf ball", emoji:"⛳", len:4.1, wt:7,
   dev:"Reflexes begin developing.",
   fact:"Fingerprints are starting to form.",
   tip:"Energy often starts creeping back soon — hang in there!"},
- {size:"Peach", emoji:"🍑", len:5.4, wt:14,
+ {size:"a chicken egg", emoji:"🥚", len:5.4, wt:14,
   dev:"Vocal cords and fingerprints develop further.",
   fact:"The baby can squint and frown.",
   tip:"End of the first trimester! Many couples share their news around now. 📣"},
- {size:"Lemon", emoji:"🍋", len:7.4, wt:23,
+ {size:"a tennis ball", emoji:"🎾", len:7.4, wt:23,
   dev:"The neck becomes more defined.",
   fact:"Fine hair called lanugo will eventually cover the body.",
   tip:"Welcome to the second trimester — often the sweet spot of pregnancy. 🎀"},
- {size:"Apple", emoji:"🍎", len:8.7, wt:43,
+ {size:"a lightbulb", emoji:"💡", len:8.7, wt:43,
   dev:"Bones continue hardening.",
   fact:"The baby may start hearing muffled sounds soon.",
   tip:"Time for photos! A weekly bump picture makes an amazing keepsake."},
- {size:"Avocado", emoji:"🥑", len:10.1, wt:70,
+ {size:"a softball", emoji:"🥎", len:10.1, wt:70,
   dev:"Facial muscles develop.",
   fact:"The circulatory system is fully functioning.",
   tip:"Talk and sing to the bump — baby's hearing is tuning in."},
- {size:"Pear", emoji:"🍐", len:11.6, wt:100,
+ {size:"a juice box", emoji:"🧃", len:11.6, wt:100,
   dev:"Fat storage begins.",
   fact:"The skeleton is changing from cartilage to bone.",
   tip:"Sleeping on your side (left is great) gets comfier with a pillow between the knees."},
- {size:"Bell pepper", emoji:"🫑", len:13, wt:140,
+ {size:"a soda can", emoji:"🥤", len:13, wt:140,
   dev:"Hearing develops rapidly.",
   fact:"The baby may hear voices and music.",
   tip:"Make a bump playlist — babies remember familiar songs after birth! 🎶"},
- {size:"Mango", emoji:"🥭", len:14.2, wt:190,
+ {size:"a sunglasses case", emoji:"🕶️", len:14.2, wt:190,
   dev:"Protective vernix begins forming.",
   fact:"Sleep cycles begin developing.",
   tip:"The anatomy scan is coming up — you can find out boy or girl if you want!"},
- {size:"Banana", emoji:"🍌", len:15.3, wt:240,
+ {size:"a dollar bill", emoji:"💵", len:15.3, wt:240,
   dev:"The halfway point — movements may be felt.",
   fact:"The baby practices swallowing.",
   tip:"Those first flutters feel like bubbles or butterflies. Note the date! 🦋"},
- {size:"Carrot", emoji:"🥕", len:25.6, wt:300,
+ {size:"a dinner plate, across", emoji:"🍽️", len:25.6, wt:300,
   dev:"Taste buds are developing.",
   fact:"The baby can react to flavors in amniotic fluid.",
   tip:"Halfway there! Celebrate with a date night — you've both earned it. 🥂"},
- {size:"Papaya", emoji:"🍈", len:26.7, wt:360,
+ {size:"a size-9 sneaker", emoji:"👟", len:26.7, wt:360,
   dev:"Eyebrows and hair become more visible.",
   fact:"Tiny fingerprints are fully formed.",
   tip:"Start the baby registry while energy is good — future you says thanks."},
- {size:"Grapefruit", emoji:"🍊", len:27.8, wt:430,
+ {size:"a sheet of paper, tall side", emoji:"📄", len:27.8, wt:430,
   dev:"Lungs continue developing.",
   fact:"The baby can respond to loud noises.",
   tip:"For Ericka: press a hand on the bump — kicks may be feelable from the outside soon!"},
- {size:"Corn on the cob", emoji:"🌽", len:28.9, wt:500,
+ {size:"a 2-liter soda bottle", emoji:"🧴", len:28.9, wt:500,
   dev:"The lungs begin producing surfactant.",
   fact:"The baby's face looks much more newborn-like.",
   tip:"Tour your hospital or birth center and start a birth-preferences list."},
- {size:"Acorn squash", emoji:"🌰", len:30, wt:600,
+ {size:"a full ruler", emoji:"📏", len:30, wt:600,
   dev:"Rapid brain growth occurs.",
   fact:"The baby may respond to touch.",
   tip:"A big milestone week for baby's development. Give the bump a high five. ✋"},
- {size:"Zucchini", emoji:"🥒", len:34.6, wt:660,
+ {size:"a 13-inch laptop", emoji:"💻", len:34.6, wt:660,
   dev:"Eyes begin opening.",
   fact:"The baby can detect light changes.",
   tip:"Glucose screening usually happens between now and week 28 — the drink is… an experience."},
- {size:"Cauliflower", emoji:"🥦", len:35.6, wt:760,
+ {size:"a large pizza, across", emoji:"🍕", len:35.6, wt:760,
   dev:"The brain becomes highly active.",
   fact:"Hiccups may occur regularly.",
   tip:"Feel rhythmic little pulses? Those are baby hiccups — totally normal and adorable."},
- {size:"Eggplant", emoji:"🍆", len:36.6, wt:875,
+ {size:"a bowling pin", emoji:"🎳", len:36.6, wt:875,
   dev:"Fat layers continue building.",
   fact:"The baby may dream during REM sleep.",
   tip:"Last week of the second trimester — nursery planning season is here! 🛏️"},
- {size:"Butternut squash", emoji:"🍠", len:37.6, wt:1000,
+ {size:"a steering wheel, across", emoji:"🛞", len:37.6, wt:1000,
   dev:"Muscles and lungs mature further.",
   fact:"The baby's kicks may become stronger.",
   tip:"Third trimester! Appointments move to every two weeks around now."},
- {size:"Cabbage", emoji:"🥬", len:38.6, wt:1150,
+ {size:"a small fire extinguisher", emoji:"🧯", len:38.6, wt:1150,
   dev:"The baby practices breathing motions.",
   fact:"The baby can grasp with tiny hands.",
   tip:"Start daily kick counts — the Kicks tab is ready for you! 👣"},
- {size:"Coconut", emoji:"🥥", len:39.9, wt:1300,
+ {size:"a carry-on suitcase", emoji:"🧳", len:39.9, wt:1300,
   dev:"Major weight gain begins.",
   fact:"All five senses are functioning.",
   tip:"Baby shower season! Let people spoil you — they truly want to. 🎈"},
- {size:"Jicama", emoji:"🥔", len:41.1, wt:1500,
+ {size:"a paper grocery bag", emoji:"🛍️", len:41.1, wt:1500,
   dev:"Bones are fully developed but still soft.",
   fact:"Toenails and fingernails are complete.",
   tip:"Heartburn creeping in? Small meals and propping up pillows can help a lot."},
- {size:"Pineapple", emoji:"🍍", len:42.4, wt:1700,
+ {size:"a 17-inch monitor", emoji:"🖥️", len:42.4, wt:1700,
   dev:"Immune system receives antibodies.",
   fact:"The baby is rapidly gaining fat.",
   tip:"Install the car seat early and have it checked — many fire stations do it free."},
- {size:"Cantaloupe", emoji:"🍈", len:43.7, wt:1900,
+ {size:"a newborn onesie", emoji:"👕", len:43.7, wt:1900,
   dev:"The lungs near maturity.",
   fact:"The baby may settle lower into the pelvis soon.",
   tip:"Pack the hospital bag this month — the checklist in More is waiting. 🧳"},
- {size:"Honeydew melon", emoji:"🍈", len:45, wt:2100,
+ {size:"a throw pillow", emoji:"🛋️", len:45, wt:2100,
   dev:"Kidneys are fully developed.",
   fact:"Most organ systems are mature.",
   tip:"Practice the drive to the hospital and figure out where to park."},
- {size:"Romaine lettuce", emoji:"🥗", len:46.2, wt:2400,
+ {size:"an infant car seat", emoji:"🚼", len:46.2, wt:2400,
   dev:"The baby continues putting on weight.",
   fact:"The baby practices blinking and gripping.",
   tip:"Freezer meals made now are a gift to your future sleep-deprived selves."},
- {size:"Swiss chard", emoji:"🌿", len:47.4, wt:2600,
+ {size:"a computer keyboard", emoji:"⌨️", len:47.4, wt:2600,
   dev:"The baby is considered early term.",
   fact:"The digestive system is ready for feeding.",
   tip:"Weekly appointments begin around now. The finish line is in sight!"},
- {size:"Leek", emoji:"🧅", len:48.6, wt:2900,
+ {size:"a bed pillow, across", emoji:"🛏️", len:48.6, wt:2900,
   dev:"The baby is nearly full term.",
   fact:"The placenta is still providing antibodies.",
   tip:"Full term this week! 🌟 Rest, hydrate, and keep the phone charged."},
- {size:"Mini watermelon", emoji:"🍉", len:49.8, wt:3100,
+ {size:"a grown-up's arm", emoji:"💪", len:49.8, wt:3100,
   dev:"The brain and lungs continue fine-tuning.",
   fact:"The baby is still growing every day.",
   tip:"Curb walks, spicy food, all the tricks — but baby picks the birthday. 😄"},
- {size:"Pumpkin", emoji:"🎃", len:50.7, wt:3300,
+ {size:"full newborn size", emoji:"👶", len:50.7, wt:3300,
   dev:"Ready for birth!",
   fact:"The due date is an estimate, not an expiration date.",
   tip:"Any moment now. Breathe. You two are going to be amazing moms. 💛"},
- {size:"Pumpkin", emoji:"🎃", len:51.2, wt:3500,
+ {size:"full newborn size", emoji:"👶", len:51.2, wt:3500,
   dev:"Ready for birth!",
   fact:"The due date is an estimate, not an expiration date.",
   tip:"Overdue is still on time. Snuggles are only days away — hang in there!"}
@@ -877,7 +877,7 @@ const DAILY_FACTS = [
  "The womb holds steady around 99.6°F — baby's personal climate control.",
  "At term, the placenta does the job of lungs, kidneys, and liver all at once.",
  "Baby's hands can grasp by week 16 — and by birth the grip is remarkably strong.",
- "The average newborn is about 7.5 pounds and 20 inches — a mini watermelon with excellent PR.",
+ "The average newborn is about 7.5 pounds and 20 inches — of pure, squishy magic.",
  "Fine hair called lanugo covers baby like peach fuzz, then mostly sheds before birth.",
  "Babies urinate into the amniotic fluid from about week 10. Yes, really. It's sterile — and recycled!",
  "Amniotic fluid is completely refreshed several times a day by the third trimester.",
@@ -906,7 +906,7 @@ const LOVE_NOTES = [
  "The nursery can wait. The love is already fully furnished.",
  "Hey {baby} — grow strong, take your time. We'll be right here.",
  "Somewhere between one heartbeat and the next, everything changed for {parents}.",
- "You're the size of produce, {baby}, but the weight of a whole future.",
+ "You're barely the size of anything yet, {baby}, and already the weight of a whole future.",
  "Today's forecast: 100% chance of being loved, {baby}.",
  "Dear {baby}: we promise pillow forts, bedtime stories, and unconditional everything.",
  "{parents} made a wish. It's currently doing somersaults in Courtney's belly.",
@@ -933,7 +933,6 @@ function today0(){ const t=new Date(); return new Date(t.getFullYear(),t.getMont
 function gestDays(){ return Math.round((today0() - lmpDate())/DAY); }
 function fmtDate(d, opts){ return d.toLocaleDateString(undefined, opts||{month:"long", day:"numeric", year:"numeric"}); }
 function el(id){ return document.getElementById(id); }
-function aAn(noun){ return (/^[aeiou]/i.test(noun) ? "an " : "a ") + noun; }
 function esc(s){ const d=document.createElement("div"); d.textContent=s; return d.innerHTML; }
 
 /* ============================== baby illustration ============================== */
@@ -1044,7 +1043,7 @@ function renderToday(){
   el("weekLine").textContent = days < 0 ? "Coming soon!" : `Week ${w}` + (d ? ` + ${d} ${d===1?"day":"days"}` : "");
   el("sizeLine").textContent = days > 280
     ? "Baby is ready when baby is ready! 🎃"
-    : `${settings.baby} is the size of ${aAn(wk.size.toLowerCase())} ${wk.emoji}`;
+    : `${settings.baby} is the size of ${wk.size} ${wk.emoji}`;
 
   const m = el("measureLine");
   if(wk.len){
@@ -1052,9 +1051,9 @@ function renderToday(){
     let wt = "";
     if(wk.wt){
       const oz = wk.wt/28.35;
-      wt = oz < 16 ? ` • ~${oz<1?oz.toFixed(1):Math.round(oz)} oz` : ` • ~${Math.floor(oz/16)} lb ${Math.round(oz%16)} oz`;
+      wt = oz < 16 ? ` • ~${oz<0.1?oz.toFixed(2):oz<1?oz.toFixed(1):Math.round(oz)} oz` : ` • ~${Math.floor(oz/16)} lb ${Math.round(oz%16)} oz`;
     }
-    m.textContent = `~${inch} in${wt}`;
+    m.textContent = `~${inch} in (${wk.len} cm)${wt}`;
     m.hidden = false;
   } else m.hidden = true;
 
@@ -1105,7 +1104,7 @@ function renderToday(){
   else bonus.push({v: "3rd", l:"trimester — home stretch! 🌅"});
   if(w < 20) bonus.push({v: 20*7 - clamped, l:"days until halfway 🎉"});
   if(w < 37) bonus.push({v: 37*7 - clamped, l:"days until full term 🌟"});
-  bonus.push({v: 7 - d, l: (7-d)===1 ? "day until a new fruit 🍉" : "days until a new fruit 🍉"});
+  bonus.push({v: 7 - d, l: (7-d)===1 ? "day until the next size-up 📏" : "days until the next size-up 📏"});
   bonus.push({v: (100 - pct).toFixed(0) + "%", l:"of the adventure still ahead 🧭"});
   const stat4 = bonus[di % bonus.length];
   el("statGrid").innerHTML = [stat1, stat2, stat3, stat4].map(s =>
@@ -1131,7 +1130,7 @@ function renderToday(){
   // new-week celebration
   const lastWeek = store.get("lastSeenWeek", null);
   if(lastWeek !== null && w > lastWeek && days >= 0){
-    setTimeout(()=>{ confetti(); toast(`New week! ${settings.baby} is now the size of ${aAn(wk.size.toLowerCase())} ${wk.emoji}`); }, 600);
+    setTimeout(()=>{ confetti(); toast(`New week! ${settings.baby} is now the size of ${wk.size} ${wk.emoji}`); }, 600);
   }
   store.set("lastSeenWeek", w);
 }
@@ -1170,7 +1169,7 @@ function renderWeeks(){
     const btn = document.createElement("button");
     btn.className = "wk" + (w===curW ? " now" : (w<curW ? " past" : ""));
     btn.innerHTML = `<span class="em">${wk.emoji}</span>
-      <span><span class="t">Week ${w}</span><br><span class="s">${esc(wk.size)}</span></span>
+      <span><span class="t">Week ${w}</span><br><span class="s">${esc(wk.size[0].toUpperCase()+wk.size.slice(1))}</span></span>
       <span class="arr">›</span>`;
     btn.addEventListener("click", ()=>openSheet(w));
     list.appendChild(btn);
@@ -1186,11 +1185,11 @@ function openSheet(w){
   el("shArt").innerHTML = babyArt(w, "s");
   el("shTitle").textContent = `Week ${w} ${wk.emoji}`;
   el("shDates").textContent = fmtDate(start,{month:"short",day:"numeric"}) + " – " + fmtDate(end,{month:"short",day:"numeric",year:"numeric"});
-  let size = wk.size;
+  let size = wk.size[0].toUpperCase() + wk.size.slice(1);
   if(wk.len){
     const inch=(wk.len/2.54).toFixed(1);
     size += ` — about ${inch} in`;
-    if(wk.wt){ const oz=wk.wt/28.35; size += oz<16 ? `, ${oz<1?oz.toFixed(1):Math.round(oz)} oz` : `, ${Math.floor(oz/16)} lb ${Math.round(oz%16)} oz`; }
+    if(wk.wt){ const oz=wk.wt/28.35; size += oz<16 ? `, ${oz<0.1?oz.toFixed(2):oz<1?oz.toFixed(1):Math.round(oz)} oz` : `, ${Math.floor(oz/16)} lb ${Math.round(oz%16)} oz`; }
   }
   el("shSize").textContent = size;
   el("shDev").innerHTML = `<p style="margin:0 0 2px">${wk.dev}</p>` + devListHTML(w);

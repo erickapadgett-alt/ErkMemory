@@ -3,8 +3,10 @@
 A cute, happy, mobile-first web app to follow Courtney's pregnancy week by week.
 Due date: **March 12, 2027** 🎃→👶
 
-Built from the family pregnancy calendar spreadsheet — all 41 weeks of baby
-sizes (poppy seed to pumpkin!), development notes, and fun facts, plus:
+Built from the family pregnancy calendar spreadsheet — all 41 weeks of
+real-world size comparisons (a coffee bean → a golf ball → a dollar bill →
+full newborn size) with accurate lengths and weights, development notes,
+and fun facts, plus:
 
 - **Today** — live progress ring, baby-size fruit of the week, an illustration
   of what baby looks like right now, countdown to the due date, specific
